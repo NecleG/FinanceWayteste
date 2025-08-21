@@ -18,141 +18,40 @@
             opacity: 0.6;
         }
         
-        /* Animações modernas e suaves */
-        .slide-in {
-            animation: slideIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .scale-in {
-            animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        
-        .bounce-in {
-            animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-        
-        @keyframes bounceIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.3);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.05);
-            }
-            70% {
-                transform: scale(0.9);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        
-        .hover-lift {
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        .hover-lift:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-        
+        /* Animações otimizadas e leves */
         .glass-effect {
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
         .gradient-border {
-            position: relative;
             background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-            border: 1px solid transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
         
-        .gradient-border::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            padding: 1px;
-            background: linear-gradient(45deg, #3b82f6, #8b5cf6, #ec4899);
-            border-radius: inherit;
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: exclude;
-            -webkit-mask-composite: xor;
-        }
-        
+        /* Animações simplificadas apenas onde necessário */
         .pulse-glow {
-            animation: pulseGlow 2s infinite;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
         }
         
-        @keyframes pulseGlow {
-            0%, 100% {
-                box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
-            }
-            50% {
-                box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
-            }
+        /* Transições básicas e rápidas */
+        .hover-lift {
+            transition: transform 0.2s ease;
         }
         
-        .floating {
-            animation: floating 3s ease-in-out infinite;
+        .hover-lift:hover {
+            transform: translateY(-2px);
         }
         
-        @keyframes floating {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-        
-        .calendar-day-selected {
-            ring: 2px solid #fbbf24;
-            background: rgba(251, 191, 36, 0.2);
-        }
-
-        .calendar-day-today {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            font-weight: bold;
-        }
-
-        /* Inputs e selects modernos */
+        /* Estilos básicos otimizados */
         select, input {
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 0.2s ease;
+        }
+        
+        select {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
         }
         
         select option {
@@ -160,97 +59,32 @@
             color: white;
         }
 
-        select {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-        }
-
         select:focus, input:focus {
             background-color: rgba(255, 255, 255, 0.15);
-            transform: translateY(-1px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
         
-        /* Botões com efeitos modernos */
+        /* Botões simplificados */
         .btn-modern {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        .btn-modern::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .btn-modern:hover::before {
-            left: 100%;
+            transition: all 0.2s ease;
         }
         
         .btn-modern:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transform: translateY(-1px);
         }
         
-        /* Responsividade aprimorada */
+        /* Micro-interações básicas */
+        .micro-bounce:active {
+            transform: scale(0.98);
+        }
+        
+        /* Responsividade básica */
         @media (max-width: 768px) {
-            .slide-in {
-                animation-duration: 0.3s;
+            .glass-effect {
+                backdrop-filter: blur(10px);
             }
             
             .hover-lift:hover {
-                transform: translateY(-2px) scale(1.01);
-            }
-            
-            .glass-effect {
-                backdrop-filter: blur(15px);
-            }
-        }
-        
-        /* Loading states */
-        .loading-shimmer {
-            background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-        }
-        
-        @keyframes shimmer {
-            0% {
-                background-position: -200% 0;
-            }
-            100% {
-                background-position: 200% 0;
-            }
-        }
-        
-        /* Micro-interações */
-        .micro-bounce {
-            transition: transform 0.1s ease;
-        }
-        
-        .micro-bounce:active {
-            transform: scale(0.95);
-        }
-        
-        /* Animações de transição entre abas */
-        .tab-content {
-            animation: fadeInUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+                transform: translateY(-1px);
             }
         }
     </style>
@@ -1430,37 +1264,84 @@
             }
         }
 
-        // Inicialização do app
+        // Inicialização otimizada do app
         function initializeApp() {
+            // Configurações básicas (síncronas)
             const today = new Date().toISOString().split('T')[0];
             const currentMonth = getCurrentMonth();
             
             document.getElementById('date').value = today;
             
-            const monthFilter = document.getElementById('monthFilter');
-            const monthFilterMobile = document.getElementById('monthFilterMobile');
-            const dashboardMonth = document.getElementById('dashboardMonth');
+            // Configurar filtros de mês
+            const monthElements = ['monthFilter', 'monthFilterMobile', 'monthFilterTablet', 'dashboardMonth'];
+            monthElements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) element.value = currentMonth;
+            });
             
-            if (monthFilter) monthFilter.value = currentMonth;
-            if (monthFilterMobile) monthFilterMobile.value = currentMonth;
-            if (dashboardMonth) dashboardMonth.value = currentMonth;
+            // Event listeners otimizados (uma vez só)
+            setupEventListeners();
             
-            updateMonthlyBalance();
-            renderTransactions();
-            renderReminders();
-            updateDashboard();
-            renderCalendar();
+            // Renderização inicial assíncrona
+            requestAnimationFrame(() => {
+                updateMonthlyBalance();
+                renderTransactions();
+                renderReminders();
+            });
             
-            // Removido - agora usa toggleInstallmentField()
+            // Renderizações menos críticas com delay
+            setTimeout(() => {
+                if (currentTab === 'dashboard') updateDashboard();
+                if (currentTab === 'calendar') renderCalendar();
+            }, 100);
+        }
+        
+        // Configurar event listeners uma única vez
+        function setupEventListeners() {
+            // Formulários
+            const transactionForm = document.getElementById('transactionForm');
+            const editForm = document.getElementById('editTransactionForm');
             
-            document.getElementById('transactionForm').addEventListener('submit', addTransaction);
-            document.getElementById('editTransactionForm').addEventListener('submit', updateTransaction);
+            if (transactionForm && !transactionForm.hasAttribute('data-listener')) {
+                transactionForm.setAttribute('data-listener', 'true');
+                transactionForm.addEventListener('submit', addTransaction);
+            }
             
-            if (monthFilter) monthFilter.addEventListener('change', updateMonthlyBalance);
-            if (monthFilterMobile) monthFilterMobile.addEventListener('change', updateMonthlyBalance);
+            if (editForm && !editForm.hasAttribute('data-listener')) {
+                editForm.setAttribute('data-listener', 'true');
+                editForm.addEventListener('submit', updateTransaction);
+            }
             
-            const monthFilterTablet = document.getElementById('monthFilterTablet');
-            if (monthFilterTablet) monthFilterTablet.addEventListener('change', updateMonthlyBalance);
+            // Filtros de mês
+            const monthElements = ['monthFilter', 'monthFilterMobile', 'monthFilterTablet'];
+            monthElements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element && !element.hasAttribute('data-listener')) {
+                    element.setAttribute('data-listener', 'true');
+                    element.addEventListener('change', updateMonthlyBalance);
+                }
+            });
+            
+            // Busca otimizada
+            const searchInput = document.getElementById('searchText');
+            if (searchInput && !searchInput.hasAttribute('data-listener')) {
+                searchInput.setAttribute('data-listener', 'true');
+                searchInput.addEventListener('input', () => {
+                    debounceSearch(() => {
+                        renderTransactions();
+                    });
+                });
+            }
+            
+            // Outros filtros
+            const filterElements = ['filterType', 'filterCategory', 'filterMonth', 'filterStatus'];
+            filterElements.forEach(filterId => {
+                const element = document.getElementById(filterId);
+                if (element && !element.hasAttribute('data-listener')) {
+                    element.setAttribute('data-listener', 'true');
+                    element.addEventListener('change', applyFilters);
+                }
+            });
         }
 
         // Função para alternar campo de parcelas
@@ -1481,39 +1362,52 @@
             }
         }
 
-        // Navegação por abas
+        // Navegação otimizada por abas
         function switchTab(tab) {
-            document.querySelectorAll('[id$="Tab"]').forEach(tabBtn => {
-                tabBtn.className = 'flex-1 flex items-center justify-center space-x-2 py-3 px-4 rounded-xl text-white text-opacity-70 hover:bg-white hover:bg-opacity-10 transition-all';
+            // Evitar mudança desnecessária
+            if (currentTab === tab) return;
+            
+            // Atualizar botões das abas (mais eficiente)
+            const inactiveClass = 'flex-1 flex items-center justify-center space-x-2 py-3 px-4 rounded-xl text-white text-opacity-70 hover:bg-white hover:bg-opacity-10 transition-all';
+            const activeClass = 'flex-1 flex items-center justify-center space-x-2 py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold transition-all';
+            
+            // Resetar todos os botões
+            ['transactions', 'dashboard', 'calendar', 'piggybank'].forEach(tabName => {
+                const tabBtn = document.getElementById(tabName + 'Tab');
+                if (tabBtn) tabBtn.className = inactiveClass;
             });
             
-            document.getElementById(tab + 'Tab').className = 'flex-1 flex items-center justify-center space-x-2 py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold transition-all';
+            // Ativar botão selecionado
+            const activeBtn = document.getElementById(tab + 'Tab');
+            if (activeBtn) activeBtn.className = activeClass;
             
-            // Esconder todas as abas
-            const allTabs = ['transactionsContent', 'dashboardContent', 'calendarContent', 'piggybankContent'];
-            allTabs.forEach(tabId => {
-                const tabElement = document.getElementById(tabId);
-                tabElement.classList.add('hidden');
-                // Remover classe de animação para resetar
-                tabElement.classList.remove('tab-content');
-            });
+            // Esconder aba atual
+            const currentTabElement = document.getElementById(currentTab + 'Content');
+            if (currentTabElement) currentTabElement.classList.add('hidden');
             
-            // Mostrar aba selecionada com animação
-            setTimeout(() => {
-                const selectedTab = document.getElementById(tab + 'Content');
+            // Mostrar nova aba imediatamente (sem delay)
+            const selectedTab = document.getElementById(tab + 'Content');
+            if (selectedTab) {
                 selectedTab.classList.remove('hidden');
                 selectedTab.classList.add('tab-content');
-            }, 50);
+            }
             
             currentTab = tab;
             
-            if (tab === 'dashboard') {
-                setTimeout(() => updateDashboard(), 100);
-            } else if (tab === 'calendar') {
-                setTimeout(() => renderCalendar(), 100);
-            } else if (tab === 'piggybank') {
-                setTimeout(() => updatePiggyBank(), 100);
-            }
+            // Renderizar conteúdo específico da aba (assíncrono)
+            requestAnimationFrame(() => {
+                switch(tab) {
+                    case 'dashboard':
+                        updateDashboard();
+                        break;
+                    case 'calendar':
+                        renderCalendar();
+                        break;
+                    case 'piggybank':
+                        updatePiggyBank();
+                        break;
+                }
+            });
         }
 
         // Atualizar saldo mensal
@@ -1794,17 +1688,159 @@
             }
         }
 
-        // Renderizar transações com otimização
+        // Cache otimizado e controle de renderização
+        let transactionCache = new Map();
+        let lastRenderedTransactions = [];
+        let isRendering = false;
+        let renderTimeout = null;
+        
+        // Renderizar transações com otimização máxima
         function renderTransactions() {
+            // Evitar renderizações simultâneas
+            if (isRendering) return;
+            
+            // Cancelar renderização pendente
+            if (renderTimeout) {
+                clearTimeout(renderTimeout);
+            }
+            
+            // Usar requestAnimationFrame para melhor performance
+            renderTimeout = requestAnimationFrame(() => {
+                performTransactionRender();
+            });
+        }
+        
+        function performTransactionRender() {
+            isRendering = true;
             const container = document.getElementById('transactionsList');
+            
+            if (!container) {
+                isRendering = false;
+                return;
+            }
+            
             const filteredTransactions = getFilteredTransactions();
             
             if (filteredTransactions.length === 0) {
                 container.innerHTML = '<p class="text-white text-opacity-70 text-center py-8">Nenhuma transação encontrada</p>';
+                isRendering = false;
                 return;
             }
             
-            // Usar DocumentFragment para melhor performance
+            // Verificar se precisa re-renderizar (comparação ultra-rápida)
+            const transactionHash = filteredTransactions.length + '_' + (filteredTransactions[0]?.id || '') + '_' + (filteredTransactions[filteredTransactions.length - 1]?.id || '');
+            if (container.dataset.lastHash === transactionHash) {
+                isRendering = false;
+                return;
+            }
+            
+            container.dataset.lastHash = transactionHash;
+            
+            // Paginação virtual agressiva para mobile
+            const isMobile = window.innerWidth < 768;
+            const maxVisible = isMobile ? 15 : 25;
+            const visibleTransactions = filteredTransactions.slice(0, maxVisible);
+            
+            // Usar innerHTML para máxima performance (mais rápido que DOM)
+            let html = '';
+            
+            // Cache de strings para evitar recálculos
+            const categoryNames = {
+                salary: 'Salário', food: 'Alimentação', transport: 'Transporte', health: 'Saúde',
+                education: 'Educação', entertainment: 'Entretenimento', shopping: 'Compras',
+                bills: 'Contas', investment: 'Investimento', other: 'Outros'
+            };
+            
+            visibleTransactions.forEach((transaction) => {
+                const amountColor = transaction.amount >= 0 ? 'text-green-400' : 'text-red-400';
+                const completedClass = transaction.completed ? 'opacity-60' : '';
+                const bgColor = transaction.amount >= 0 ? 'bg-green-500' : 'bg-red-500';
+                const icon = transaction.amount >= 0 ? 'fa-arrow-up' : 'fa-arrow-down';
+                const amount = Math.abs(transaction.amount).toLocaleString('pt-BR', {minimumFractionDigits: 2});
+                const date = new Date(transaction.date).toLocaleDateString('pt-BR');
+                
+                // Template string otimizado (sem condicionais complexas)
+                html += `
+                    <div class="bg-white rounded-xl p-3 ${completedClass} border border-gray-200 mb-2" data-id="${transaction.id}">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3 flex-1 min-w-0">
+                                <div class="w-10 h-10 rounded-full ${bgColor} flex items-center justify-center text-white flex-shrink-0">
+                                    <i class="fas ${icon} text-sm"></i>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="font-bold text-gray-800 truncate">${transaction.description}</h4>
+                                    <div class="text-sm text-gray-600">
+                                        <span>${categoryNames[transaction.category]} • ${date}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2 flex-shrink-0">
+                                <span class="font-bold ${amountColor} text-sm">
+                                    ${transaction.amount >= 0 ? '+' : '-'} R$ ${amount}
+                                </span>
+                                <div class="flex space-x-1">
+                                    ${!transaction.completed ? `<button class="complete-btn bg-green-500 text-white p-1 rounded text-xs" data-id="${transaction.id}"><i class="fas fa-check"></i></button>` : ''}
+                                    ${transaction.amount > 0 && !transaction.inPiggyBank ? `<button class="piggy-btn bg-pink-500 text-white p-1 rounded text-xs" data-id="${transaction.id}"><i class="fas fa-piggy-bank"></i></button>` : ''}
+                                    <button class="edit-btn bg-blue-500 text-white p-1 rounded text-xs" data-id="${transaction.id}"><i class="fas fa-edit"></i></button>
+                                    <button class="delete-btn bg-red-500 text-white p-1 rounded text-xs" data-id="${transaction.id}"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            // Indicador de mais transações (simplificado)
+            if (filteredTransactions.length > maxVisible) {
+                html += `
+                    <div class="text-center py-3">
+                        <p class="text-white text-opacity-70 text-sm mb-2">
+                            ${maxVisible} de ${filteredTransactions.length} transações
+                        </p>
+                        <button onclick="showAllTransactions()" class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm">
+                            Ver Todas
+                        </button>
+                    </div>
+                `;
+            }
+            
+            // Atualizar DOM de uma vez só
+            container.innerHTML = html;
+            
+            // Event delegation otimizado
+            if (!container.hasAttribute('data-listener')) {
+                container.setAttribute('data-listener', 'true');
+                container.addEventListener('click', handleTransactionClick, { passive: true });
+            }
+            
+            isRendering = false;
+        }
+        
+        // Event delegation para botões das transações
+        function handleTransactionClick(e) {
+            const button = e.target.closest('button');
+            if (!button) return;
+            
+            e.preventDefault();
+            const id = button.getAttribute('data-id');
+            
+            if (button.classList.contains('complete-btn')) {
+                toggleComplete(id);
+            } else if (button.classList.contains('piggy-btn')) {
+                saveToPiggyBank(id);
+            } else if (button.classList.contains('edit-btn')) {
+                editTransaction(id);
+            } else if (button.classList.contains('delete-btn')) {
+                deleteTransaction(id);
+            }
+        }
+        
+        // Função para mostrar todas as transações
+        function showAllTransactions() {
+            const container = document.getElementById('transactionsList');
+            const filteredTransactions = getFilteredTransactions();
+            
+            // Renderizar todas sem limite
             const fragment = document.createDocumentFragment();
             
             const categoryNames = {
@@ -1813,138 +1849,19 @@
                 bills: 'Contas', investment: 'Investimento', other: 'Outros'
             };
             
-            const priorityColors = {
-                low: 'bg-green-500',
-                medium: 'bg-yellow-500',
-                high: 'bg-red-500'
-            };
-            
-            const priorityNames = {
-                low: 'Baixa',
-                medium: 'Média',
-                high: 'Alta'
-            };
-            
-            filteredTransactions.forEach((transaction, index) => {
-                const amountColor = transaction.amount >= 0 ? 'text-green-400' : 'text-red-400';
-                const completedClass = transaction.completed ? 'transaction-completed' : '';
-                
-                const transactionDiv = document.createElement('div');
-                transactionDiv.className = `bg-white rounded-2xl p-6 ${completedClass} slide-in hover-lift transition-all duration-300 group shadow-lg border border-gray-200`;
-                transactionDiv.style.animationDelay = `${index * 0.05}s`;
-                
-                // Ícone baseado no tipo de transação
-                const transactionIcon = transaction.amount >= 0 ? 
-                    '<div class="w-16 h-16 rounded-full bg-green-500 flex items-center justify-center text-white shadow-lg"><i class="fas fa-arrow-up text-4xl"></i></div>' :
-                    '<div class="w-16 h-16 rounded-full bg-red-500 flex items-center justify-center text-white shadow-lg"><i class="fas fa-arrow-down text-4xl"></i></div>';
-
-                transactionDiv.innerHTML = `
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center space-x-6">
-                            ${transactionIcon}
-                            
-                            <div class="flex-1 min-w-0">
-                                <div class="flex items-center space-x-2 mb-2">
-                                    <h4 class="font-bold text-gray-800 text-2xl truncate">
-                                        ${transaction.description}
-                                    </h4>
-                                    ${transaction.installments ? `
-                                        <span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm px-3 py-1 rounded-full font-medium">
-                                            ${transaction.installments}
-                                        </span>
-                                    ` : ''}
-                                </div>
-                                <div class="flex items-center space-x-4 text-lg text-gray-600 mb-2">
-                                    <span class="flex items-center space-x-1">
-                                        <span class="font-medium">${categoryNames[transaction.category]}</span>
-                                    </span>
-                                    <span class="flex items-center space-x-1">
-                                        <i class="fas fa-calendar-alt text-sm"></i>
-                                        <span>${new Date(transaction.date).toLocaleDateString('pt-BR')}</span>
-                                    </span>
-                                    <div class="flex items-center space-x-2">
-                                        <div class="w-4 h-4 rounded-full ${priorityColors[transaction.priority]} animate-pulse shadow-lg"></div>
-                                        <span class="text-sm text-gray-500 uppercase tracking-wide font-medium">
-                                            ${priorityNames[transaction.priority]}
-                                        </span>
-                                    </div>
-                                </div>
-                                ${transaction.notes ? `
-                                    <p class="text-lg text-gray-500 italic bg-gray-50 rounded-lg px-4 py-2 inline-block">
-                                        "${transaction.notes}"
-                                    </p>
-                                ` : ''}
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-center space-x-6">
-                            <div class="text-right">
-                                <span class="font-bold ${amountColor} text-3xl">
-                                    ${transaction.amount >= 0 ? '+' : '-'} R$ ${Math.abs(transaction.amount).toLocaleString('pt-BR', {minimumFractionDigits: 2})}
-                                </span>
-                            </div>
-                            
-                            <div class="flex space-x-3 opacity-70 group-hover:opacity-100 transition-opacity">
-                                ${!transaction.completed ? `
-                                    <button class="complete-btn bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white p-4 rounded-xl btn-modern micro-bounce shadow-lg" title="Marcar como concluída" data-id="${transaction.id}">
-                                        <i class="fas fa-check text-lg"></i>
-                                    </button>
-                                ` : ''}
-                                ${transaction.amount > 0 && !transaction.inPiggyBank ? `
-                                    <button class="piggy-btn bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white p-4 rounded-xl btn-modern micro-bounce shadow-lg" title="Guardar no cofrinho" data-id="${transaction.id}">
-                                        <i class="fas fa-piggy-bank text-lg"></i>
-                                    </button>
-                                ` : ''}
-                                <button class="edit-btn bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-4 rounded-xl btn-modern micro-bounce shadow-lg" title="Editar transação" data-id="${transaction.id}">
-                                    <i class="fas fa-edit text-lg"></i>
-                                </button>
-                                <button class="delete-btn bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white p-4 rounded-xl btn-modern micro-bounce shadow-lg" title="Excluir transação" data-id="${transaction.id}">
-                                    <i class="fas fa-trash text-lg"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                
-                fragment.appendChild(transactionDiv);
+            filteredTransactions.forEach((transaction) => {
+                if (transactionCache.has(transaction.id)) {
+                    const cachedElement = transactionCache.get(transaction.id).cloneNode(true);
+                    fragment.appendChild(cachedElement);
+                }
             });
             
-            // Limpar container e adicionar fragment
             container.innerHTML = '';
             container.appendChild(fragment);
             
-            // Adicionar event listeners após renderizar
-            container.querySelectorAll('.complete-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const id = btn.getAttribute('data-id');
-                    toggleComplete(id);
-                });
-            });
-            
-            container.querySelectorAll('.piggy-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const id = btn.getAttribute('data-id');
-                    saveToPiggyBank(id);
-                });
-            });
-            
-            container.querySelectorAll('.edit-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const id = btn.getAttribute('data-id');
-                    editTransaction(id);
-                });
-            });
-            
-            container.querySelectorAll('.delete-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const id = btn.getAttribute('data-id');
-                    deleteTransaction(id);
-                });
-            });
+            // Re-adicionar event listener
+            container.removeEventListener('click', handleTransactionClick);
+            container.addEventListener('click', handleTransactionClick);
         }
 
         // Filtros e busca
@@ -2010,8 +1927,24 @@
             return filtered;
         }
 
+        // Sistema de debounce otimizado
+        let filterTimeout;
+        let searchTimeout;
+        
+        function debounceFilter(func, delay = 150) {
+            clearTimeout(filterTimeout);
+            filterTimeout = setTimeout(func, delay);
+        }
+        
+        function debounceSearch(func, delay = 300) {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(func, delay);
+        }
+        
         function applyFilters() {
-            renderTransactions();
+            debounceFilter(() => {
+                renderTransactions();
+            });
         }
 
         function resetFilters() {
@@ -2029,6 +1962,9 @@
             if (filterStatusEl) filterStatusEl.value = '';
             if (quickFilterTypeEl) quickFilterTypeEl.value = '';
             
+            // Limpar cache ao resetar filtros
+            transactionCache.clear();
+            lastRenderedTransactions = [];
             renderTransactions();
         }
 
@@ -2949,8 +2885,30 @@
             renderPiggyBankHistory();
         }
 
+        // Renderização otimizada de metas
+        let goalsRenderTimeout = null;
+        let isRenderingGoals = false;
+        
         function renderGoalsList() {
+            if (isRenderingGoals) return;
+            
+            if (goalsRenderTimeout) {
+                clearTimeout(goalsRenderTimeout);
+            }
+            
+            goalsRenderTimeout = requestAnimationFrame(() => {
+                performGoalsRender();
+            });
+        }
+        
+        function performGoalsRender() {
+            isRenderingGoals = true;
             const container = document.getElementById('goalsList');
+            
+            if (!container) {
+                isRenderingGoals = false;
+                return;
+            }
             
             if (piggyBankData.goals.length === 0) {
                 container.innerHTML = `
@@ -2959,119 +2917,205 @@
                             <i class="fas fa-bullseye text-2xl text-gray-900"></i>
                         </div>
                         <p class="text-white text-opacity-70 mb-4">Nenhuma meta criada ainda</p>
-                        <button onclick="showCreateGoalModal()" class="bg-gradient-to-r from-pink-500 to-pink-600 text-white px-6 py-3 rounded-xl font-medium hover:shadow-lg transition-all">
+                        <button onclick="showCreateGoalModal()" class="bg-gradient-to-r from-pink-500 to-pink-600 text-white px-6 py-3 rounded-xl font-medium">
                             <i class="fas fa-plus mr-2"></i>
                             Criar Primeira Meta
                         </button>
                     </div>
                 `;
+                isRenderingGoals = false;
                 return;
             }
             
-            // Usar DocumentFragment para melhor performance
-            const fragment = document.createDocumentFragment();
+            // Verificação rápida de mudanças
+            const goalsHash = piggyBankData.goals.length + '_' + piggyBankData.goals.map(g => g.current).join('_');
+            if (container.dataset.goalsHash === goalsHash) {
+                isRenderingGoals = false;
+                return;
+            }
             
-            piggyBankData.goals.forEach((goal, index) => {
+            container.dataset.goalsHash = goalsHash;
+            
+            // Usar innerHTML para máxima performance
+            let html = '';
+            
+            piggyBankData.goals.forEach((goal) => {
                 const progress = goal.target > 0 ? (goal.current / goal.target) * 100 : 0;
                 const isCompleted = progress >= 100;
+                const progressWidth = Math.min(progress, 100);
+                const currentFormatted = goal.current.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+                const targetFormatted = goal.target.toLocaleString('pt-BR', {minimumFractionDigits: 2});
                 
-                const goalDiv = document.createElement('div');
-                goalDiv.className = 'bg-white bg-opacity-5 rounded-xl p-6 border border-white border-opacity-10 slide-in';
-                goalDiv.style.animationDelay = `${index * 0.1}s`;
-                
-                goalDiv.innerHTML = `
-                    <div class="flex items-start justify-between mb-4">
-                        <div class="flex-1">
-                            <div class="flex items-center space-x-3 mb-2">
-                                <h4 class="text-xl font-bold text-white">${goal.name}</h4>
-                                ${isCompleted ? '<span class="bg-green-500 text-white text-xs px-2 py-1 rounded-full">✅ Concluída</span>' : ''}
-                            </div>
-                            ${goal.description ? `<p class="text-white text-opacity-70 text-sm mb-3">${goal.description}</p>` : ''}
-                            
-                            <div class="space-y-2">
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-white text-opacity-70">Progresso</span>
-                                    <span class="text-white font-medium">${Math.round(progress)}%</span>
+                html += `
+                    <div class="bg-white bg-opacity-5 rounded-xl p-4 border border-white border-opacity-10 mb-3" data-goal-id="${goal.id}">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2 mb-2">
+                                    <h4 class="text-lg font-bold text-white">${goal.name}</h4>
+                                    ${isCompleted ? '<span class="bg-green-500 text-white text-xs px-2 py-1 rounded-full">✅</span>' : ''}
                                 </div>
-                                <div class="w-full bg-white bg-opacity-20 rounded-full h-3">
-                                    <div class="bg-gradient-to-r from-pink-400 to-yellow-400 h-3 rounded-full transition-all duration-500" style="width: ${Math.min(progress, 100)}%"></div>
-                                </div>
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-pink-400 font-bold">R$ ${goal.current.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
-                                    <span class="text-yellow-400 font-bold">R$ ${goal.target.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-white text-opacity-70">Progresso</span>
+                                        <span class="text-white font-medium">${Math.round(progress)}%</span>
+                                    </div>
+                                    <div class="w-full bg-white bg-opacity-20 rounded-full h-2">
+                                        <div class="bg-gradient-to-r from-pink-400 to-yellow-400 h-2 rounded-full" style="width: ${progressWidth}%"></div>
+                                    </div>
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-pink-400 font-bold">R$ ${currentFormatted}</span>
+                                        <span class="text-yellow-400 font-bold">R$ ${targetFormatted}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <div class="flex space-x-2 ml-4">
-                            <button class="edit-goal-btn bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg transition-all" title="Editar meta" data-goal-id="${goal.id}">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="delete-goal-btn bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg transition-all" title="Excluir meta" data-goal-id="${goal.id}">
-                                <i class="fas fa-trash"></i>
-                            </button>
+                            <div class="flex space-x-2 ml-3">
+                                <button class="edit-goal-btn bg-blue-500 text-white p-2 rounded-lg text-xs" data-goal-id="${goal.id}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="delete-goal-btn bg-red-500 text-white p-2 rounded-lg text-xs" data-goal-id="${goal.id}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 `;
-                
-                fragment.appendChild(goalDiv);
             });
             
-            container.innerHTML = '';
-            container.appendChild(fragment);
+            container.innerHTML = html;
             
-            // Adicionar event listeners após renderizar
-            container.querySelectorAll('.edit-goal-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const goalId = btn.getAttribute('data-goal-id');
-                    showEditGoalModal(goalId);
-                });
-            });
+            // Event delegation otimizado
+            if (!container.hasAttribute('data-goals-listener')) {
+                container.setAttribute('data-goals-listener', 'true');
+                container.addEventListener('click', handleGoalClick, { passive: true });
+            }
             
-            container.querySelectorAll('.delete-goal-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const goalId = btn.getAttribute('data-goal-id');
-                    deleteGoal(goalId);
-                });
-            });
+            isRenderingGoals = false;
+        }
+        
+        // Event delegation para botões das metas
+        function handleGoalClick(e) {
+            const button = e.target.closest('button');
+            if (!button) return;
+            
+            e.preventDefault();
+            const goalId = button.getAttribute('data-goal-id');
+            
+            if (button.classList.contains('edit-goal-btn')) {
+                showEditGoalModal(goalId);
+            } else if (button.classList.contains('delete-goal-btn')) {
+                deleteGoal(goalId);
+            }
         }
 
+        // Renderização otimizada do histórico
+        let historyRenderTimeout = null;
+        let isRenderingHistory = false;
+        
         function renderPiggyBankHistory() {
+            if (isRenderingHistory) return;
+            
+            if (historyRenderTimeout) {
+                clearTimeout(historyRenderTimeout);
+            }
+            
+            historyRenderTimeout = requestAnimationFrame(() => {
+                performHistoryRender();
+            });
+        }
+        
+        function performHistoryRender() {
+            isRenderingHistory = true;
             const container = document.getElementById('piggyBankHistory');
             
-            if (piggyBankData.history.length === 0) {
-                container.innerHTML = '<p class="text-white text-opacity-70 text-center py-8">Nenhuma movimentação no cofrinho ainda</p>';
+            if (!container) {
+                isRenderingHistory = false;
                 return;
             }
             
-            container.innerHTML = piggyBankData.history.map((entry, index) => {
+            if (piggyBankData.history.length === 0) {
+                container.innerHTML = '<p class="text-white text-opacity-70 text-center py-8">Nenhuma movimentação no cofrinho ainda</p>';
+                isRenderingHistory = false;
+                return;
+            }
+            
+            // Verificação rápida de mudanças
+            const historyHash = piggyBankData.history.length + '_' + (piggyBankData.history[0]?.id || '');
+            if (container.dataset.historyHash === historyHash) {
+                isRenderingHistory = false;
+                return;
+            }
+            
+            container.dataset.historyHash = historyHash;
+            
+            // Paginação agressiva para mobile
+            const isMobile = window.innerWidth < 768;
+            const maxVisible = isMobile ? 10 : 15;
+            const visibleHistory = piggyBankData.history.slice(0, maxVisible);
+            
+            // Usar innerHTML para máxima performance
+            let html = '';
+            
+            visibleHistory.forEach((entry) => {
                 const isDeposit = entry.type === 'deposit';
                 const amountColor = isDeposit ? 'text-green-400' : 'text-red-400';
                 const icon = isDeposit ? 'fa-plus' : 'fa-minus';
                 const bgColor = isDeposit ? 'bg-green-500' : 'bg-red-500';
+                const amount = Math.abs(entry.amount).toLocaleString('pt-BR', {minimumFractionDigits: 2});
+                const date = new Date(entry.date).toLocaleDateString('pt-BR');
                 
-                return `
-                    <div class="bg-white bg-opacity-5 rounded-xl p-4 border border-white border-opacity-10 slide-in" style="animation-delay: ${index * 0.05}s;">
+                html += `
+                    <div class="bg-white bg-opacity-5 rounded-xl p-3 border border-white border-opacity-10 mb-2">
                         <div class="flex items-center justify-between">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 rounded-full ${bgColor} flex items-center justify-center text-white">
-                                    <i class="fas ${icon}"></i>
+                            <div class="flex items-center space-x-3 flex-1 min-w-0">
+                                <div class="w-8 h-8 rounded-full ${bgColor} flex items-center justify-center text-white flex-shrink-0">
+                                    <i class="fas ${icon} text-xs"></i>
                                 </div>
-                                <div>
-                                    <p class="font-semibold text-white">${entry.description}</p>
-                                    ${entry.goalName ? `<p class="text-xs text-pink-300">Meta: ${entry.goalName}</p>` : ''}
-                                    <p class="text-sm text-white text-opacity-70">${new Date(entry.date).toLocaleDateString('pt-BR')}</p>
+                                <div class="flex-1 min-w-0">
+                                    <p class="font-semibold text-white text-sm truncate">${entry.description}</p>
+                                    ${entry.goalName ? `<p class="text-xs text-pink-300 truncate">Meta: ${entry.goalName}</p>` : ''}
+                                    <p class="text-xs text-white text-opacity-70">${date}</p>
                                 </div>
                             </div>
-                            <span class="font-bold ${amountColor}">
-                                ${isDeposit ? '+' : '-'} R$ ${Math.abs(entry.amount).toLocaleString('pt-BR', {minimumFractionDigits: 2})}
+                            <span class="font-bold ${amountColor} text-sm flex-shrink-0">
+                                ${isDeposit ? '+' : '-'} R$ ${amount}
                             </span>
                         </div>
                     </div>
                 `;
-            }).join('');
+            });
+            
+            // Indicador de mais histórico (simplificado)
+            if (piggyBankData.history.length > maxVisible) {
+                html += `
+                    <div class="text-center py-3">
+                        <p class="text-white text-opacity-70 text-sm mb-2">
+                            ${maxVisible} de ${piggyBankData.history.length} movimentações
+                        </p>
+                        <button onclick="showAllHistory()" class="bg-pink-500 text-white px-4 py-2 rounded-lg text-sm">
+                            Ver Todas
+                        </button>
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = html;
+            isRenderingHistory = false;
+        }
+        
+        // Função para mostrar todo o histórico
+        function showAllHistory() {
+            const container = document.getElementById('piggyBankHistory');
+            const fragment = document.createDocumentFragment();
+            
+            piggyBankData.history.forEach((entry) => {
+                if (historyCache.has(entry.id)) {
+                    const cachedElement = historyCache.get(entry.id).cloneNode(true);
+                    fragment.appendChild(cachedElement);
+                }
+            });
+            
+            container.innerHTML = '';
+            container.appendChild(fragment);
         }
 
         // Modais do Cofrinho
@@ -3494,5 +3538,5 @@
         });
 
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'972d664c141f0316',t:'MTc1NTgxMzU4OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'972d81f083ba6230',t:'MTc1NTgxNDcyMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
