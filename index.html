@@ -1,0 +1,3498 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanceWay - Gestão Financeira Inteligente</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .backdrop-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        
+        .transaction-completed {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+        
+        /* Animações modernas e suaves */
+        .slide-in {
+            animation: slideIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .scale-in {
+            animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .bounce-in {
+            animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border: 1px solid transparent;
+        }
+        
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            padding: 1px;
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6, #ec4899);
+            border-radius: inherit;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            -webkit-mask-composite: xor;
+        }
+        
+        .pulse-glow {
+            animation: pulseGlow 2s infinite;
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+            }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .calendar-day-selected {
+            ring: 2px solid #fbbf24;
+            background: rgba(251, 191, 36, 0.2);
+        }
+
+        .calendar-day-today {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Inputs e selects modernos */
+        select, input {
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        select option {
+            background-color: #1f2937;
+            color: white;
+        }
+
+        select {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        select:focus, input:focus {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-1px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        /* Botões com efeitos modernos */
+        .btn-modern {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .btn-modern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-modern:hover::before {
+            left: 100%;
+        }
+        
+        .btn-modern:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        
+        /* Responsividade aprimorada */
+        @media (max-width: 768px) {
+            .slide-in {
+                animation-duration: 0.3s;
+            }
+            
+            .hover-lift:hover {
+                transform: translateY(-2px) scale(1.01);
+            }
+            
+            .glass-effect {
+                backdrop-filter: blur(15px);
+            }
+        }
+        
+        /* Loading states */
+        .loading-shimmer {
+            background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+        
+        /* Micro-interações */
+        .micro-bounce {
+            transition: transform 0.1s ease;
+        }
+        
+        .micro-bounce:active {
+            transform: scale(0.95);
+        }
+        
+        /* Animações de transição entre abas */
+        .tab-content {
+            animation: fadeInUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+    <!-- Tela de Login -->
+    <div id="loginScreen" class="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+        <!-- Preview do app ao fundo -->
+        <div class="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+            <!-- Header simulado -->
+            <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 p-4 opacity-60">
+                <div class="max-w-7xl mx-auto flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-wallet text-2xl text-yellow-400"></i>
+                        <span class="text-2xl font-bold text-white">FinanceWay</span>
+                    </div>
+                    <div class="backdrop-blur bg-white bg-opacity-10 rounded-xl p-4 border border-white border-opacity-20">
+                        <div class="text-2xl font-bold text-white">R$ 2.450,00</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cards simulados -->
+            <div class="max-w-7xl mx-auto p-4 mt-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 opacity-50">
+                    <div class="bg-gradient-to-r from-green-400 to-green-600 rounded-2xl p-6 text-white">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-green-100">Entradas</p>
+                                <p class="text-3xl font-bold">R$ 3.200,00</p>
+                            </div>
+                            <i class="fas fa-trending-up text-4xl text-green-200"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-red-400 to-red-600 rounded-2xl p-6 text-white">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-red-100">Saídas</p>
+                                <p class="text-3xl font-bold">R$ 750,00</p>
+                            </div>
+                            <i class="fas fa-trending-down text-4xl text-red-200"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-orange-400 to-orange-600 rounded-2xl p-6 text-white">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-orange-100">Pendentes</p>
+                                <p class="text-3xl font-bold">R$ 320,00</p>
+                            </div>
+                            <i class="fas fa-clock text-4xl text-orange-200"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Transações simuladas -->
+                <div class="mt-6 backdrop-blur bg-white bg-opacity-10 rounded-2xl border border-white border-opacity-20 opacity-40">
+                    <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-4">
+                        <h3 class="text-lg font-bold text-white">📊 Suas Transações</h3>
+                    </div>
+                    <div class="p-4 space-y-3">
+                        <div class="backdrop-blur bg-white bg-opacity-5 rounded-xl p-4 border border-white border-opacity-10">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white">
+                                        <i class="fas fa-arrow-up"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold text-white">Salário Janeiro</p>
+                                        <p class="text-sm text-white text-opacity-70">💼 salary • 01/01/2024</p>
+                                    </div>
+                                </div>
+                                <span class="font-bold text-green-400">R$ 3.200,00</span>
+                            </div>
+                        </div>
+                        
+                        <div class="backdrop-blur bg-white bg-opacity-5 rounded-xl p-4 border border-white border-opacity-10">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-full bg-red-500 flex items-center justify-center text-white">
+                                        <i class="fas fa-arrow-down"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold text-white">Aluguel</p>
+                                        <p class="text-sm text-white text-opacity-70">🏠 bills • 05/01/2024</p>
+                                    </div>
+                                </div>
+                                <span class="font-bold text-red-400">R$ 800,00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Overlay com desfoque leve -->
+        <div class="absolute inset-0 backdrop-blur-sm bg-black bg-opacity-20"></div>
+        
+        <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-2xl p-8 w-full max-w-md text-center border border-white border-opacity-20 shadow-xl relative z-10">
+            <!-- Logo simples -->
+            <div class="mb-6">
+                <div class="w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg mx-auto">
+                    <i class="fas fa-wallet text-2xl text-gray-900"></i>
+                </div>
+            </div>
+            
+            <h1 class="text-3xl font-bold text-white mb-2">FinanceWay</h1>
+            <p class="text-white text-opacity-70 mb-8">Faça login para continuar</p>
+            
+            <!-- Formulário de Login -->
+            <div id="loginForm" class="space-y-4">
+                <div class="text-left">
+                    <label class="block text-white text-sm font-medium mb-2">Email</label>
+                    <input type="email" id="loginEmail" class="w-full px-4 py-3 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-xl text-white placeholder-white placeholder-opacity-50 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all" placeholder="seu@email.com">
+                </div>
+                <div class="text-left">
+                    <label class="block text-white text-sm font-medium mb-2">Senha</label>
+                    <input type="password" id="loginPassword" class="w-full px-4 py-3 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-xl text-white placeholder-white placeholder-opacity-50 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all" placeholder="••••••••">
+                </div>
+                
+                <button onclick="loginWithEmail()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl hover:shadow-lg transition-all duration-300">
+                    <i class="fas fa-envelope mr-2"></i>
+                    Entrar com Email
+                </button>
+                
+                <div class="relative my-6">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-white border-opacity-20"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-transparent text-white text-opacity-70">ou</span>
+                    </div>
+                </div>
+                
+                <button onclick="loginWithGoogle()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-xl hover:shadow-lg transition-all duration-300">
+                    <i class="fab fa-google mr-2"></i>
+                    Continuar com Google
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Aplicativo Principal -->
+    <div id="mainApp" class="hidden min-h-screen">
+        <!-- Header -->
+        <header class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 p-4 relative overflow-hidden">
+
+            
+            <div class="max-w-7xl mx-auto relative z-10">
+                <!-- Desktop Layout -->
+                <div class="hidden lg:flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
+                            <i class="fas fa-wallet text-xl text-gray-900"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-3xl font-bold text-white">FinanceWay</h1>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-6">
+                        <!-- Card de Saldo -->
+                        <div class="glass-effect rounded-2xl p-6 min-w-[280px] pulse-glow">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center space-x-2">
+                                    <i class="fas fa-calendar text-yellow-400"></i>
+                                    <span class="text-white text-sm font-medium">Saldo</span>
+                                </div>
+                                <input type="month" id="monthFilter" class="bg-white bg-opacity-10 text-white text-sm border border-white border-opacity-20 rounded-lg px-2 py-1 outline-none focus:ring-2 focus:ring-yellow-400" value="2024-01">
+                            </div>
+                            <div class="text-3xl font-bold text-white" id="monthlyBalance">R$ 0,00</div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4">
+                            <div class="text-right">
+                                <div class="font-bold text-white text-lg" id="userDisplayName">Usuário Demo</div>
+                                <div class="text-white text-opacity-70 text-sm">Bem-vindo de volta!</div>
+                            </div>
+                            <button onclick="logout()" class="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 p-3 rounded-xl btn-modern micro-bounce shadow-lg">
+                                <i class="fas fa-sign-out-alt text-white"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tablet Layout -->
+                <div class="hidden md:flex lg:hidden items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-wallet text-lg text-gray-900"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-bold text-white">FinanceWay</h1>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <div class="glass-effect rounded-xl p-4">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <i class="fas fa-calendar text-yellow-400 text-sm"></i>
+                                <input type="month" id="monthFilterTablet" class="bg-transparent text-white text-sm border-none outline-none" value="2024-01">
+                            </div>
+                            <div class="text-xl font-bold text-white" id="monthlyBalanceTablet">R$ 0,00</div>
+                        </div>
+                        <button onclick="logout()" class="bg-gradient-to-r from-red-500 to-red-600 p-2 rounded-lg btn-modern">
+                            <i class="fas fa-sign-out-alt text-white"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Mobile Layout -->
+                <div class="md:hidden space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-wallet text-lg text-gray-900"></i>
+                            </div>
+                            <div>
+                                <h1 class="text-xl font-bold text-white">FinanceWay</h1>
+                            </div>
+                        </div>
+                        <button onclick="logout()" class="bg-gradient-to-r from-red-500 to-red-600 p-2 rounded-lg btn-modern micro-bounce">
+                            <i class="fas fa-sign-out-alt text-white"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="glass-effect rounded-2xl p-4 text-center">
+                        <div class="flex items-center justify-center space-x-2 mb-3">
+                            <i class="fas fa-calendar text-yellow-400"></i>
+                            <span class="text-white text-sm font-medium">Saldo</span>
+                        </div>
+                        <input type="month" id="monthFilterMobile" class="bg-white bg-opacity-10 text-white text-sm border border-white border-opacity-20 rounded-lg px-3 py-2 mb-3 outline-none focus:ring-2 focus:ring-yellow-400" value="2024-01">
+                        <div class="text-2xl font-bold text-white" id="monthlyBalanceMobile">R$ 0,00</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navegação por Abas -->
+        <div class="max-w-7xl mx-auto p-4">
+            <div class="backdrop-blur bg-white bg-opacity-10 rounded-2xl p-2 border border-white border-opacity-20 mb-6">
+                <div class="flex">
+                    <button onclick="switchTab('transactions')" id="transactionsTab" class="flex-1 flex items-center justify-center space-x-2 py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold transition-all">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span class="hidden sm:inline">Transações</span>
+                        <span class="sm:hidden">Trans.</span>
+                    </button>
+                    <button onclick="switchTab('dashboard')" id="dashboardTab" class="flex-1 flex items-center justify-center space-x-2 py-3 px-4 rounded-xl text-white text-opacity-70 hover:bg-white hover:bg-opacity-10 transition-all">
+                        <i class="fas fa-chart-line"></i>
+                        <span class="hidden sm:inline">Dashboard</span>
+                        <span class="sm:hidden">Dash.</span>
+                    </button>
+                    <button onclick="switchTab('calendar')" id="calendarTab" class="flex-1 flex items-center justify-center space-x-2 py-3 px-4 rounded-xl text-white text-opacity-70 hover:bg-white hover:bg-opacity-10 transition-all">
+                        <i class="fas fa-calendar-week"></i>
+                        <span class="hidden sm:inline">Calendário</span>
+                        <span class="sm:hidden">Cal.</span>
+                    </button>
+                    <button onclick="switchTab('piggybank')" id="piggybankTab" class="flex-1 flex items-center justify-center space-x-2 py-3 px-4 rounded-xl text-white text-opacity-70 hover:bg-white hover:bg-opacity-10 transition-all">
+                        <i class="fas fa-piggy-bank"></i>
+                        <span class="hidden sm:inline">Cofrinho</span>
+                        <span class="sm:hidden">Cofre</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Aba Transações -->
+            <div id="transactionsContent" class="space-y-6 tab-content">
+                <!-- Lembretes -->
+                <div class="space-y-4">
+                    <h3 class="text-xl font-bold text-white mb-4 flex items-center">
+                        <i class="fas fa-bell text-yellow-400 mr-2"></i>
+                        Lembretes Importantes
+                    </h3>
+                    <div id="reminders" class="space-y-3">
+                        <!-- Lembretes serão inseridos aqui -->
+                    </div>
+                </div>
+
+                <!-- Formulário de Nova Transação -->
+                <div class="glass-effect rounded-2xl p-6 gradient-border fade-in">
+                    <h3 class="text-xl font-bold text-white mb-6 flex items-center">
+                        <div class="w-10 h-10 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-plus text-gray-900"></i>
+                        </div>
+                        Nova Transação
+                    </h3>
+                    <form id="transactionForm" class="space-y-6">
+                        <!-- Linha 1: Informações básicas -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div class="space-y-2">
+                                <label class="block text-white text-sm font-medium">Descrição *</label>
+                                <input type="text" id="description" required class="w-full px-4 py-3 glass-effect rounded-xl text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 micro-bounce" placeholder="Ex: Salário, Aluguel...">
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <label class="block text-white text-sm font-medium">Valor *</label>
+                                <div class="relative">
+                                    <span class="absolute left-3 top-3 text-gray-300">R$</span>
+                                    <input type="number" id="amount" step="0.01" required class="w-full pl-10 pr-4 py-3 glass-effect rounded-xl text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 micro-bounce" placeholder="0,00">
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <label class="block text-white text-sm font-medium">Tipo</label>
+                                <select id="type" class="w-full px-4 py-3 glass-effect rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-yellow-400 micro-bounce">
+                                    <option value="income">💰 Receita</option>
+                                    <option value="expense">💸 Despesa</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Linha 2: Categoria e Data -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div class="space-y-2">
+                                <label class="block text-white text-sm font-medium">Categoria</label>
+                                <select id="category" class="w-full px-4 py-3 glass-effect rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-yellow-400 micro-bounce">
+                                    <option value="salary">💼 Salário</option>
+                                    <option value="food">🍔 Alimentação</option>
+                                    <option value="transport">🚗 Transporte</option>
+                                    <option value="health">🏥 Saúde</option>
+                                    <option value="education">📚 Educação</option>
+                                    <option value="entertainment">🎬 Entretenimento</option>
+                                    <option value="shopping">🛍️ Compras</option>
+                                    <option value="bills">📄 Contas</option>
+                                    <option value="investment">📈 Investimento</option>
+                                    <option value="other">📦 Outros</option>
+                                </select>
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <label class="block text-white text-sm font-medium">Data</label>
+                                <input type="date" id="date" class="w-full px-4 py-3 glass-effect rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-yellow-400 micro-bounce">
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <label class="block text-white text-sm font-medium">Prioridade</label>
+                                <select id="priority" class="w-full px-4 py-3 glass-effect rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-yellow-400 micro-bounce">
+                                    <option value="low">🟢 Baixa</option>
+                                    <option value="medium">🟡 Média</option>
+                                    <option value="high">🔴 Alta</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Linha 3: Observações e Parcelas -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="block text-white text-sm font-medium">Observações</label>
+                                <input type="text" id="notes" maxlength="50" class="w-full px-4 py-3 glass-effect rounded-xl text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 micro-bounce" placeholder="Observações opcionais (máx 50 chars)">
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <label class="block text-white text-sm font-medium">Parcelas</label>
+                                <div class="flex items-center space-x-3">
+                                    <label class="flex items-center text-white cursor-pointer">
+                                        <input type="checkbox" id="isInstallment" class="mr-2 w-4 h-4 text-yellow-400 bg-white bg-opacity-10 border-2 border-gray-300 rounded focus:ring-yellow-400 focus:ring-2 cursor-pointer accent-yellow-400" onchange="toggleInstallmentField()">
+                                        <span class="text-sm">Parcelar?</span>
+                                    </label>
+                                    <input type="text" id="installments" placeholder="Ex: 1/12" class="flex-1 px-3 py-2 glass-effect rounded-lg text-white placeholder-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400 micro-bounce" disabled style="opacity: 0.5; cursor: not-allowed;">
+                                </div>
+                                <p class="text-xs text-gray-300 opacity-70">Formato: parcela atual/total (ex: 1/12)</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Botão de Submit -->
+                        <div class="pt-4">
+                            <button type="submit" class="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 font-bold py-4 px-6 rounded-xl btn-modern micro-bounce pulse-glow">
+                                <i class="fas fa-plus mr-2"></i>
+                                Adicionar Transação
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Filtros -->
+                <div class="glass-effect rounded-2xl p-6 scale-in">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 space-y-3 sm:space-y-0">
+                        <h3 class="text-lg font-bold text-white flex items-center">
+                            <div class="w-8 h-8 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center mr-3">
+                                <i class="fas fa-search text-white text-sm"></i>
+                            </div>
+                            Filtros e Busca
+                        </h3>
+
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <!-- Busca Principal -->
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i class="fas fa-search text-gray-300"></i>
+                            </div>
+                            <input type="text" id="searchText" placeholder="Buscar por descrição ou observações..." class="w-full pl-12 pr-4 py-4 glass-effect rounded-xl text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 micro-bounce text-lg">
+                        </div>
+                        
+                        <!-- Filtros em Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div class="space-y-2">
+                                <label class="block text-white text-sm font-medium">📅 Período</label>
+                                <input type="month" id="filterMonth" class="w-full px-4 py-3 glass-effect rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-yellow-400 micro-bounce">
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <label class="block text-white text-sm font-medium">💰 Tipo & Status</label>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <select id="filterType" class="px-3 py-3 glass-effect rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-yellow-400 micro-bounce text-sm">
+                                        <option value="">Todos</option>
+                                        <option value="income">💰 Receitas</option>
+                                        <option value="expense">💸 Despesas</option>
+                                    </select>
+                                    <select id="filterStatus" class="px-3 py-3 glass-effect rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-yellow-400 micro-bounce text-sm">
+                                        <option value="">Todos</option>
+                                        <option value="completed">✅ Concluídas</option>
+                                        <option value="pending">⏳ Pendentes</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <label class="block text-white text-sm font-medium">📂 Categoria</label>
+                                <select id="filterCategory" class="w-full px-4 py-3 glass-effect rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-yellow-400 micro-bounce">
+                                    <option value="">Todas</option>
+                                    <option value="salary">💼 Salário</option>
+                                    <option value="food">🍔 Alimentação</option>
+                                    <option value="transport">🚗 Transporte</option>
+                                    <option value="health">🏥 Saúde</option>
+                                    <option value="education">📚 Educação</option>
+                                    <option value="entertainment">🎬 Entretenimento</option>
+                                    <option value="shopping">🛍️ Compras</option>
+                                    <option value="bills">📄 Contas</option>
+                                    <option value="investment">📈 Investimento</option>
+                                    <option value="other">📦 Outros</option>
+                                </select>
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <label class="block text-white text-sm font-medium">🔄 Ações</label>
+                                <div class="flex space-x-2">
+                                    <button onclick="applyFilters()" class="flex-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 px-3 rounded-xl text-sm btn-modern micro-bounce">
+                                        <i class="fas fa-filter"></i>
+                                    </button>
+                                    <button onclick="resetFilters()" class="flex-1 glass-effect text-white py-3 px-3 rounded-xl text-sm btn-modern micro-bounce">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lista de Transações -->
+                <div class="backdrop-blur bg-white bg-opacity-10 rounded-2xl border border-white border-opacity-20 overflow-hidden">
+                    <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-4">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0">
+                            <h3 class="text-lg font-bold text-white flex items-center">
+                                <i class="fas fa-list-alt text-yellow-400 mr-2"></i>
+                                Suas Transações
+                            </h3>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <!-- Botões de ordenação melhorados -->
+                                <button onclick="toggleSortOrder('date')" id="sortDateBtn" class="bg-white bg-opacity-10 hover:bg-opacity-20 text-white px-4 py-2 rounded-lg transition-all flex items-center space-x-2 font-medium" title="Ordenar por data">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span class="hidden sm:inline">Data</span>
+                                    <i class="fas fa-sort-down text-xs"></i>
+                                </button>
+                                <button onclick="toggleSortOrder('amount')" id="sortAmountBtn" class="bg-white bg-opacity-10 hover:bg-opacity-20 text-white px-4 py-2 rounded-lg transition-all flex items-center space-x-2 font-medium" title="Ordenar por valor">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <span class="hidden sm:inline">Valor</span>
+                                    <i class="fas fa-sort-down text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="transactionsList" class="p-4 space-y-3">
+                        <!-- Transações serão inseridas aqui -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aba Dashboard -->
+            <div id="dashboardContent" class="hidden space-y-6 tab-content">
+                <!-- Filtros do Dashboard -->
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg">
+                    <div class="flex flex-wrap gap-4 items-end">
+                        <div>
+                            <label class="block text-gray-700 text-sm font-medium mb-2">Período</label>
+                            <input type="month" id="dashboardMonth" class="px-3 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400" value="2024-01">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 text-sm font-medium mb-2">Status</label>
+                            <select id="dashboardStatus" class="px-3 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+                                <option value="">Todas</option>
+                                <option value="completed">Concluídas</option>
+                                <option value="pending">Pendentes</option>
+                            </select>
+                        </div>
+                        <button onclick="updateDashboard()" class="bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold py-2 px-6 rounded-lg hover:shadow-lg transition-all">
+                            Aplicar Filtros
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cards de Resumo -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-gradient-to-r from-green-400 to-green-600 rounded-2xl p-6 text-white cursor-pointer hover-lift transition-all duration-300 scale-in" onclick="showIncomeDetails()">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-green-100">Receitas do Mês</p>
+                                <p class="text-3xl font-bold" id="totalIncome">R$ 0,00</p>
+                            </div>
+                            <i class="fas fa-trending-up text-4xl text-green-200"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-red-400 to-red-600 rounded-2xl p-6 text-white cursor-pointer hover-lift transition-all duration-300 scale-in" onclick="showExpenseDetails()" style="animation-delay: 0.1s;">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-red-100">Despesas do Mês</p>
+                                <p class="text-3xl font-bold" id="totalExpenses">R$ 0,00</p>
+                            </div>
+                            <i class="fas fa-trending-down text-4xl text-red-200"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-orange-400 to-orange-600 rounded-2xl p-6 text-white cursor-pointer hover-lift transition-all duration-300 scale-in" onclick="showPendingBills()" style="animation-delay: 0.2s;">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-orange-100">Contas Pendentes</p>
+                                <p class="text-3xl font-bold" id="totalPending">R$ 0,00</p>
+                            </div>
+                            <i class="fas fa-clock text-4xl text-orange-200"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gráficos -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4">📊 Receitas vs Despesas</h3>
+                        <canvas id="incomeExpenseChart" width="400" height="200"></canvas>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4">🥧 Despesas por Categoria</h3>
+                        <canvas id="categoryChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aba Calendário -->
+            <div id="calendarContent" class="hidden space-y-6 tab-content">
+                <!-- Controles do Calendário -->
+                <div class="bg-white rounded-2xl p-4 border border-gray-200 shadow-lg">
+                    <div class="flex items-center justify-between">
+                        <button onclick="previousMonth()" class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white p-2 rounded-lg hover:shadow-lg transition-all">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <h3 class="text-xl font-bold text-gray-800" id="calendarTitle">Janeiro 2024</h3>
+                        <button onclick="nextMonth()" class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white p-2 rounded-lg hover:shadow-lg transition-all">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Calendário -->
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg">
+                    <div class="grid grid-cols-7 gap-2 mb-4">
+                        <div class="text-center text-gray-800 font-semibold py-2">Dom</div>
+                        <div class="text-center text-gray-800 font-semibold py-2">Seg</div>
+                        <div class="text-center text-gray-800 font-semibold py-2">Ter</div>
+                        <div class="text-center text-gray-800 font-semibold py-2">Qua</div>
+                        <div class="text-center text-gray-800 font-semibold py-2">Qui</div>
+                        <div class="text-center text-gray-800 font-semibold py-2">Sex</div>
+                        <div class="text-center text-gray-800 font-semibold py-2">Sáb</div>
+                    </div>
+                    <div id="calendarGrid" class="grid grid-cols-7 gap-2">
+                        <!-- Dias do calendário serão inseridos aqui -->
+                    </div>
+                </div>
+
+                <!-- Legenda -->
+                <div class="bg-white rounded-2xl p-4 border border-gray-200 shadow-lg">
+                    <h4 class="text-gray-800 font-semibold mb-3">📋 Legenda</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                            <span class="text-gray-600">Receitas</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                            <span class="text-gray-600">Despesas</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                            <span class="text-gray-600">Vence em 7 dias</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 bg-orange-500 rounded-full"></div>
+                            <span class="text-gray-600">Vence hoje</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detalhes do Dia Selecionado -->
+                <div id="dayDetails" class="hidden bg-white rounded-2xl p-6 border border-gray-200 shadow-lg">
+                    <h4 class="text-gray-800 font-semibold mb-4" id="selectedDayTitle">Transações do Dia</h4>
+                    <div id="dayTransactions" class="space-y-3">
+                        <!-- Transações do dia selecionado -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aba Cofrinho -->
+            <div id="piggybankContent" class="hidden space-y-6 tab-content">
+                <!-- Card Principal do Cofrinho -->
+                <div class="glass-effect rounded-2xl p-8 gradient-border fade-in text-center">
+                    <div class="mb-6">
+                        <div class="w-24 h-24 bg-gradient-to-r from-pink-400 to-pink-600 rounded-full flex items-center justify-center shadow-xl mx-auto mb-4 floating">
+                            <i class="fas fa-piggy-bank text-4xl text-white"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold text-white mb-2">Meu Cofrinho</h3>
+                        <p class="text-white text-opacity-70">Economize para seus sonhos!</p>
+                    </div>
+                    
+                    <div class="glass-effect rounded-xl p-6 mb-8">
+                        <h4 class="text-white text-lg font-semibold mb-2">💰 Total Guardado</h4>
+                        <p class="text-4xl font-bold text-pink-400" id="piggyBankTotal">R$ 0,00</p>
+                    </div>
+                    
+                    <!-- Ações do Cofrinho -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <button onclick="showCreateGoalModal()" class="bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 font-bold py-4 px-6 rounded-xl btn-modern micro-bounce">
+                            <i class="fas fa-plus mr-2"></i>
+                            Nova Meta
+                        </button>
+                        <button onclick="showWithdrawModal()" class="bg-gradient-to-r from-red-500 to-red-600 text-white font-bold py-4 px-6 rounded-xl btn-modern micro-bounce">
+                            <i class="fas fa-hand-holding-usd mr-2"></i>
+                            Retirar Dinheiro
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Lista de Metas -->
+                <div class="backdrop-blur bg-white bg-opacity-10 rounded-2xl border border-white border-opacity-20 overflow-hidden">
+                    <div class="bg-gradient-to-r from-pink-600 to-purple-600 p-4">
+                        <h3 class="text-lg font-bold text-white flex items-center">
+                            <i class="fas fa-bullseye text-pink-200 mr-2"></i>
+                            Minhas Metas
+                        </h3>
+                    </div>
+                    <div id="goalsList" class="p-4 space-y-4">
+                        <!-- Metas serão inseridas aqui -->
+                    </div>
+                </div>
+
+                <!-- Histórico do Cofrinho -->
+                <div class="backdrop-blur bg-white bg-opacity-10 rounded-2xl border border-white border-opacity-20 overflow-hidden">
+                    <div class="bg-gradient-to-r from-pink-600 to-purple-600 p-4">
+                        <h3 class="text-lg font-bold text-white flex items-center">
+                            <i class="fas fa-history text-pink-200 mr-2"></i>
+                            Histórico do Cofrinho
+                        </h3>
+                    </div>
+                    <div id="piggyBankHistory" class="p-4 space-y-3">
+                        <!-- Histórico será inserido aqui -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Criar Meta -->
+            <div id="createGoalModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-xl max-w-md w-full">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-800">🎯 Nova Meta</h3>
+                        <button onclick="closeCreateGoalModal()" class="text-gray-600 hover:text-red-600 text-2xl">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <form id="createGoalForm" class="space-y-4">
+                        <div class="space-y-2">
+                            <label class="block text-gray-700 text-sm font-medium">Nome da Meta *</label>
+                            <input type="text" id="goalName" required class="w-full px-4 py-3 border border-gray-300 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-pink-400" placeholder="Ex: Viagem, Carro novo...">
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="block text-gray-700 text-sm font-medium">Valor da Meta *</label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-3 text-gray-500">R$</span>
+                                <input type="number" id="goalTarget" step="0.01" required class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-pink-400" placeholder="0,00">
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="block text-gray-700 text-sm font-medium">Descrição (Opcional)</label>
+                            <textarea id="goalDescription" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-pink-400" placeholder="Descreva sua meta..."></textarea>
+                        </div>
+                        
+                        <div class="flex space-x-4 pt-4">
+                            <button type="submit" class="flex-1 bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300">
+                                <i class="fas fa-save mr-2"></i>
+                                Criar Meta
+                            </button>
+                            <button type="button" onclick="closeCreateGoalModal()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300">
+                                Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Modal Editar Meta -->
+            <div id="editGoalModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-xl max-w-md w-full">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-800">✏️ Editar Meta</h3>
+                        <button onclick="closeEditGoalModal()" class="text-gray-600 hover:text-red-600 text-2xl">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <form id="editGoalForm" class="space-y-4">
+                        <div class="space-y-2">
+                            <label class="block text-gray-700 text-sm font-medium">Nome da Meta *</label>
+                            <input type="text" id="editGoalName" required class="w-full px-4 py-3 border border-gray-300 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400" placeholder="Ex: Viagem, Carro novo...">
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="block text-gray-700 text-sm font-medium">Valor da Meta *</label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-3 text-gray-500">R$</span>
+                                <input type="number" id="editGoalTarget" step="0.01" required class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400" placeholder="0,00">
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="block text-gray-700 text-sm font-medium">Descrição (Opcional)</label>
+                            <textarea id="editGoalDescription" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400" placeholder="Descreva sua meta..."></textarea>
+                        </div>
+                        
+                        <div class="flex space-x-4 pt-4">
+                            <button type="submit" class="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300">
+                                <i class="fas fa-save mr-2"></i>
+                                Salvar Alterações
+                            </button>
+                            <button type="button" onclick="closeEditGoalModal()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300">
+                                Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Modal Escolher Meta -->
+            <div id="chooseGoalModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-xl max-w-md w-full">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-800">🎯 Escolher Meta</h3>
+                        <button onclick="closeChooseGoalModal()" class="text-gray-600 hover:text-red-600 text-2xl">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="bg-green-50 rounded-xl p-4 mb-6 border border-green-200">
+                        <p class="text-green-800 font-medium">Valor a guardar:</p>
+                        <p class="text-2xl font-bold text-green-600" id="amountToSave">R$ 0,00</p>
+                        <p class="text-sm text-green-600" id="transactionToSave">Transação</p>
+                    </div>
+                    
+                    <div class="space-y-3 mb-6" id="goalsToChoose">
+                        <!-- Metas disponíveis serão inseridas aqui -->
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <button onclick="closeChooseGoalModal()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Retirar Dinheiro -->
+            <div id="withdrawModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-800">💸 Retirar do Cofrinho</h3>
+                        <button onclick="closeWithdrawModal()" class="text-gray-600 hover:text-red-600 text-2xl">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="bg-pink-50 rounded-xl p-4 mb-6 border border-pink-200">
+                        <p class="text-pink-800 font-medium">Saldo total disponível:</p>
+                        <p class="text-2xl font-bold text-pink-600" id="availableBalance">R$ 0,00</p>
+                    </div>
+                    
+                    <form id="withdrawForm" class="space-y-4">
+                        <div class="space-y-2">
+                            <label class="block text-gray-700 text-sm font-medium">Escolher Meta para Retirar *</label>
+                            <div id="withdrawGoalsList" class="space-y-2 max-h-48 overflow-y-auto">
+                                <!-- Metas serão inseridas aqui -->
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="block text-gray-700 text-sm font-medium">Valor a Retirar *</label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-3 text-gray-500">R$</span>
+                                <input type="number" id="withdrawAmount" step="0.01" required class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-red-400" placeholder="0,00" disabled>
+                            </div>
+                            <p class="text-xs text-gray-500">Selecione uma meta primeiro</p>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="block text-gray-700 text-sm font-medium">Motivo da Retirada</label>
+                            <input type="text" id="withdrawReason" class="w-full px-4 py-3 border border-gray-300 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-red-400" placeholder="Ex: Compra, Emergência...">
+                        </div>
+                        
+                        <div class="flex space-x-4 pt-4">
+                            <button type="submit" class="flex-1 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300" disabled id="withdrawSubmitBtn">
+                                <i class="fas fa-hand-holding-usd mr-2"></i>
+                                Retirar
+                            </button>
+                            <button type="button" onclick="closeWithdrawModal()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300">
+                                Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Modal de Detalhes -->
+            <div id="detailsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-xl max-w-4xl w-full max-h-[80vh] overflow-y-auto">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-800" id="modalTitle">Detalhes</h3>
+                        <button onclick="closeDetailsModal()" class="text-gray-600 hover:text-red-600 text-2xl">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div id="modalContent" class="space-y-4">
+                        <!-- Conteúdo será inserido aqui -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal de Edição de Transação -->
+            <div id="editTransactionModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-800">✏️ Editar Transação</h3>
+                        <button onclick="closeEditModal()" class="text-gray-600 hover:text-red-600 text-2xl">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <form id="editTransactionForm" class="space-y-6">
+                        <!-- Linha 1: Informações básicas -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="block text-gray-700 text-sm font-medium">Descrição *</label>
+                                <input type="text" id="editDescription" required class="w-full px-4 py-3 border border-gray-300 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400" placeholder="Ex: Salário, Aluguel...">
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <label class="block text-gray-700 text-sm font-medium">Valor *</label>
+                                <div class="relative">
+                                    <span class="absolute left-3 top-3 text-gray-500">R$</span>
+                                    <input type="number" id="editAmount" step="0.01" required class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400" placeholder="0,00">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Linha 2: Tipo e Categoria -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="block text-gray-700 text-sm font-medium">Tipo</label>
+                                <select id="editType" class="w-full px-4 py-3 border border-gray-300 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+                                    <option value="income">💰 Receita</option>
+                                    <option value="expense">💸 Despesa</option>
+                                </select>
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <label class="block text-gray-700 text-sm font-medium">Categoria</label>
+                                <select id="editCategory" class="w-full px-4 py-3 border border-gray-300 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+                                    <option value="salary">💼 Salário</option>
+                                    <option value="food">🍔 Alimentação</option>
+                                    <option value="transport">🚗 Transporte</option>
+                                    <option value="health">🏥 Saúde</option>
+                                    <option value="education">📚 Educação</option>
+                                    <option value="entertainment">🎬 Entretenimento</option>
+                                    <option value="shopping">🛍️ Compras</option>
+                                    <option value="bills">📄 Contas</option>
+                                    <option value="investment">📈 Investimento</option>
+                                    <option value="other">📦 Outros</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Linha 3: Data e Prioridade -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="block text-gray-700 text-sm font-medium">Data</label>
+                                <input type="date" id="editDate" class="w-full px-4 py-3 border border-gray-300 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <label class="block text-gray-700 text-sm font-medium">Prioridade</label>
+                                <select id="editPriority" class="w-full px-4 py-3 border border-gray-300 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+                                    <option value="low">🟢 Baixa</option>
+                                    <option value="medium">🟡 Média</option>
+                                    <option value="high">🔴 Alta</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Linha 4: Observações e Parcelas -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="block text-gray-700 text-sm font-medium">Observações</label>
+                                <input type="text" id="editNotes" maxlength="50" class="w-full px-4 py-3 border border-gray-300 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400" placeholder="Observações opcionais (máx 50 chars)">
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <label class="block text-gray-700 text-sm font-medium">Parcelas</label>
+                                <div class="flex items-center space-x-3">
+                                    <label class="flex items-center text-gray-700 cursor-pointer">
+                                        <input type="checkbox" id="editIsInstallment" class="mr-2 w-4 h-4 text-blue-400 bg-white border-2 border-gray-300 rounded focus:ring-blue-400 focus:ring-2 cursor-pointer accent-blue-400" onchange="toggleEditInstallmentField()">
+                                        <span class="text-sm">Parcelar?</span>
+                                    </label>
+                                    <input type="text" id="editInstallments" placeholder="Ex: 1/12" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-gray-800 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400" disabled style="opacity: 0.5; cursor: not-allowed;">
+                                </div>
+                                <p class="text-xs text-gray-500">Formato: parcela atual/total (ex: 1/12)</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Botões de Ação -->
+                        <div class="flex space-x-4 pt-4">
+                            <button type="submit" class="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg">
+                                <i class="fas fa-save mr-2"></i>
+                                Salvar Alterações
+                            </button>
+                            <button type="button" onclick="closeEditModal()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300">
+                                <i class="fas fa-times mr-2"></i>
+                                Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, query, where, orderBy } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBhRH760_hAthw737CrzmioyZrzCeK5H8s",
+            authDomain: "calendario-53e49.firebaseapp.com",
+            projectId: "calendario-53e49",
+            storageBucket: "calendario-53e49.firebasestorage.app",
+            messagingSenderId: "352958232134",
+            appId: "1:352958232134:web:0775e16be712522b59bc47",
+            measurementId: "G-8FYM5H6LCT"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const analytics = getAnalytics(app);
+        const provider = new GoogleAuthProvider();
+
+        // Tornar disponível globalmente
+        window.firebaseAuth = auth;
+        window.firebaseDb = db;
+        window.firebaseProvider = provider;
+        window.firebaseSignInWithEmailAndPassword = signInWithEmailAndPassword;
+        window.firebaseSignInWithPopup = signInWithPopup;
+        window.firebaseSignOut = signOut;
+        window.firebaseOnAuthStateChanged = onAuthStateChanged;
+        window.firebaseCollection = collection;
+        window.firebaseAddDoc = addDoc;
+        window.firebaseGetDocs = getDocs;
+        window.firebaseUpdateDoc = updateDoc;
+        window.firebaseDeleteDoc = deleteDoc;
+        window.firebaseDoc = doc;
+        window.firebaseQuery = query;
+        window.firebaseWhere = where;
+        window.firebaseOrderBy = orderBy;
+
+        // Verificar estado de autenticação
+        window.firebaseOnAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUser = user;
+                console.log('Usuário autenticado:', user.uid);
+                document.getElementById('userDisplayName').textContent = user.displayName || user.email;
+                if (document.getElementById('mainApp').classList.contains('hidden')) {
+                    showMainApp();
+                } else {
+                    // Se já está na tela principal, apenas recarregar transações
+                    loadUserTransactions();
+                }
+            } else {
+                console.log('Usuário não autenticado');
+                currentUser = null;
+                transactions = [];
+                document.getElementById('mainApp').classList.add('hidden');
+                document.getElementById('loginScreen').classList.remove('hidden');
+            }
+        });
+    </script>
+
+    <script>
+        // Dados das transações
+        let transactions = [];
+        let currentTab = 'transactions';
+        let sortBy = 'date';
+        let sortOrder = 'desc';
+        let selectedCalendarDay = null;
+        let currentUser = null;
+        let piggyBankData = {
+            total: 0,
+            goals: [], // Array de metas: {id, name, target, current, description, created}
+            history: []
+        };
+
+        // Funções de autenticação
+        async function loginWithEmail() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!email || !password) {
+                alert('Por favor, preencha email e senha!');
+                return;
+            }
+            
+            try {
+                const userCredential = await window.firebaseSignInWithEmailAndPassword(window.firebaseAuth, email, password);
+                currentUser = userCredential.user;
+                showMainApp();
+            } catch (error) {
+                alert('Erro no login: ' + error.message);
+            }
+        }
+
+        async function loginWithGoogle() {
+            try {
+                const result = await window.firebaseSignInWithPopup(window.firebaseAuth, window.firebaseProvider);
+                currentUser = result.user;
+                showMainApp();
+            } catch (error) {
+                alert('Erro no login com Google: ' + error.message);
+            }
+        }
+
+        function showMainApp() {
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('mainApp').classList.remove('hidden');
+            initializeApp();
+            
+            // Carregar dados do usuário
+            setTimeout(async () => {
+                try {
+                    await loadUserTransactions();
+                    await loadPiggyBankData();
+                    
+                    // Atualizar interface do cofrinho se estiver na aba
+                    if (currentTab === 'piggybank') {
+                        updatePiggyBank();
+                    }
+                } catch (error) {
+                    console.error('Erro ao carregar dados iniciais:', error);
+                }
+            }, 300);
+        }
+
+        async function logout() {
+            try {
+                await window.firebaseSignOut(window.firebaseAuth);
+                currentUser = null;
+                transactions = [];
+                document.getElementById('mainApp').classList.add('hidden');
+                document.getElementById('loginScreen').classList.remove('hidden');
+            } catch (error) {
+                alert('Erro ao fazer logout: ' + error.message);
+            }
+        }
+
+        // Carregar transações do usuário
+        async function loadUserTransactions() {
+            if (!currentUser) {
+                console.log('Usuário não autenticado, não carregando transações');
+                return;
+            }
+            
+            try {
+                console.log('Carregando transações para usuário:', currentUser.uid);
+                
+                const simpleQuery = window.firebaseCollection(window.firebaseDb, `users/${currentUser.uid}/events`);
+                const querySnapshot = await window.firebaseGetDocs(simpleQuery);
+                
+                transactions = [];
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    transactions.push({
+                        id: doc.id,
+                        ...data
+                    });
+                });
+                
+                // Ordenar localmente por data (mais recentes primeiro)
+                transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
+                
+                console.log(`Carregadas ${transactions.length} transações`);
+                
+                // Atualizar interface apenas se necessário
+                if (document.getElementById('transactionsList')) {
+                    renderTransactions();
+                    renderReminders();
+                    updateMonthlyBalance();
+                }
+                
+                if (currentTab === 'dashboard') {
+                    updateDashboard();
+                }
+                if (currentTab === 'calendar') {
+                    renderCalendar();
+                }
+            } catch (error) {
+                console.error('Erro ao carregar transações:', error);
+                alert('Erro ao carregar dados. Verifique sua conexão.');
+            }
+        }
+
+        // Salvar transação no Firebase
+        async function saveTransactionToFirebase(transaction) {
+            if (!currentUser) {
+                console.error('Tentativa de salvar sem usuário autenticado');
+                throw new Error('Usuário não autenticado');
+            }
+            
+            try {
+                console.log('Salvando transação para usuário:', currentUser.uid);
+                console.log('Dados da transação:', transaction);
+                
+                // Verificar se o usuário ainda está autenticado
+                if (!window.firebaseAuth.currentUser) {
+                    console.error('Firebase Auth currentUser é null');
+                    throw new Error('Sessão expirada');
+                }
+                
+                const docRef = await window.firebaseAddDoc(
+                    window.firebaseCollection(window.firebaseDb, `users/${currentUser.uid}/events`),
+                    transaction
+                );
+                console.log('Transação salva com sucesso, ID:', docRef.id);
+                return docRef.id;
+            } catch (error) {
+                console.error('Erro detalhado ao salvar transação:', error);
+                console.error('Código do erro:', error.code);
+                console.error('Mensagem do erro:', error.message);
+                
+                if (error.code === 'permission-denied') {
+                    alert('Erro de permissão. Verifique se você está logado.');
+                } else if (error.code === 'unauthenticated') {
+                    alert('Sessão expirada. Faça login novamente.');
+                }
+                throw error;
+            }
+        }
+
+        // Inicialização do app
+        function initializeApp() {
+            const today = new Date().toISOString().split('T')[0];
+            const currentMonth = getCurrentMonth();
+            
+            document.getElementById('date').value = today;
+            
+            const monthFilter = document.getElementById('monthFilter');
+            const monthFilterMobile = document.getElementById('monthFilterMobile');
+            const dashboardMonth = document.getElementById('dashboardMonth');
+            
+            if (monthFilter) monthFilter.value = currentMonth;
+            if (monthFilterMobile) monthFilterMobile.value = currentMonth;
+            if (dashboardMonth) dashboardMonth.value = currentMonth;
+            
+            updateMonthlyBalance();
+            renderTransactions();
+            renderReminders();
+            updateDashboard();
+            renderCalendar();
+            
+            // Removido - agora usa toggleInstallmentField()
+            
+            document.getElementById('transactionForm').addEventListener('submit', addTransaction);
+            document.getElementById('editTransactionForm').addEventListener('submit', updateTransaction);
+            
+            if (monthFilter) monthFilter.addEventListener('change', updateMonthlyBalance);
+            if (monthFilterMobile) monthFilterMobile.addEventListener('change', updateMonthlyBalance);
+            
+            const monthFilterTablet = document.getElementById('monthFilterTablet');
+            if (monthFilterTablet) monthFilterTablet.addEventListener('change', updateMonthlyBalance);
+        }
+
+        // Função para alternar campo de parcelas
+        function toggleInstallmentField() {
+            const checkbox = document.getElementById('isInstallment');
+            const installmentField = document.getElementById('installments');
+            
+            if (checkbox.checked) {
+                installmentField.disabled = false;
+                installmentField.focus();
+                installmentField.style.opacity = '1';
+                installmentField.style.cursor = 'text';
+            } else {
+                installmentField.disabled = true;
+                installmentField.value = '';
+                installmentField.style.opacity = '0.5';
+                installmentField.style.cursor = 'not-allowed';
+            }
+        }
+
+        // Navegação por abas
+        function switchTab(tab) {
+            document.querySelectorAll('[id$="Tab"]').forEach(tabBtn => {
+                tabBtn.className = 'flex-1 flex items-center justify-center space-x-2 py-3 px-4 rounded-xl text-white text-opacity-70 hover:bg-white hover:bg-opacity-10 transition-all';
+            });
+            
+            document.getElementById(tab + 'Tab').className = 'flex-1 flex items-center justify-center space-x-2 py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold transition-all';
+            
+            // Esconder todas as abas
+            const allTabs = ['transactionsContent', 'dashboardContent', 'calendarContent', 'piggybankContent'];
+            allTabs.forEach(tabId => {
+                const tabElement = document.getElementById(tabId);
+                tabElement.classList.add('hidden');
+                // Remover classe de animação para resetar
+                tabElement.classList.remove('tab-content');
+            });
+            
+            // Mostrar aba selecionada com animação
+            setTimeout(() => {
+                const selectedTab = document.getElementById(tab + 'Content');
+                selectedTab.classList.remove('hidden');
+                selectedTab.classList.add('tab-content');
+            }, 50);
+            
+            currentTab = tab;
+            
+            if (tab === 'dashboard') {
+                setTimeout(() => updateDashboard(), 100);
+            } else if (tab === 'calendar') {
+                setTimeout(() => renderCalendar(), 100);
+            } else if (tab === 'piggybank') {
+                setTimeout(() => updatePiggyBank(), 100);
+            }
+        }
+
+        // Atualizar saldo mensal
+        function updateMonthlyBalance() {
+            const monthFilter = document.getElementById('monthFilter');
+            const monthFilterTablet = document.getElementById('monthFilterTablet');
+            const monthFilterMobile = document.getElementById('monthFilterMobile');
+            
+            // Pegar o valor do filtro ativo
+            let month = getCurrentMonth();
+            if (monthFilter && monthFilter.value) month = monthFilter.value;
+            else if (monthFilterTablet && monthFilterTablet.value) month = monthFilterTablet.value;
+            else if (monthFilterMobile && monthFilterMobile.value) month = monthFilterMobile.value;
+            
+            // Sincronizar todos os filtros
+            if (monthFilter) monthFilter.value = month;
+            if (monthFilterTablet) monthFilterTablet.value = month;
+            if (monthFilterMobile) monthFilterMobile.value = month;
+            
+            // Filtrar transações do mês, excluindo as que estão no cofrinho
+            const monthTransactions = transactions.filter(t => 
+                t.date.startsWith(month) && !t.inPiggyBank
+            );
+            const balance = monthTransactions.reduce((sum, t) => sum + t.amount, 0);
+            
+            const balanceColor = balance >= 0 ? 'text-green-400' : 'text-red-400';
+            const balanceText = balance >= 0 ? 
+                `R$ ${balance.toLocaleString('pt-BR', {minimumFractionDigits: 2})}` :
+                `R$ ${Math.abs(balance).toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+            
+            // Atualizar todos os elementos de saldo
+            const monthlyBalanceEl = document.getElementById('monthlyBalance');
+            const monthlyBalanceTabletEl = document.getElementById('monthlyBalanceTablet');
+            const monthlyBalanceMobileEl = document.getElementById('monthlyBalanceMobile');
+            
+            if (monthlyBalanceEl) {
+                monthlyBalanceEl.className = `text-3xl font-bold text-white ${balanceColor}`;
+                monthlyBalanceEl.textContent = balanceText;
+            }
+            
+            if (monthlyBalanceTabletEl) {
+                monthlyBalanceTabletEl.className = `text-xl font-bold text-white ${balanceColor}`;
+                monthlyBalanceTabletEl.textContent = balanceText;
+            }
+            
+            if (monthlyBalanceMobileEl) {
+                monthlyBalanceMobileEl.className = `text-2xl font-bold text-white ${balanceColor}`;
+                monthlyBalanceMobileEl.textContent = balanceText;
+            }
+        }
+
+        function getCurrentMonth() {
+            const now = new Date();
+            return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+        }
+
+        // Adicionar transação
+        async function addTransaction(e) {
+            e.preventDefault();
+            
+            // Verificar se o usuário ainda está autenticado
+            if (!currentUser) {
+                console.log('Usuário não autenticado ao tentar adicionar transação');
+                alert('Sessão expirada. Faça login novamente.');
+                return;
+            }
+            
+            console.log('Adicionando transação para usuário:', currentUser.uid);
+            
+            const description = document.getElementById('description').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+            const type = document.getElementById('type').value;
+            const category = document.getElementById('category').value;
+            const date = document.getElementById('date').value;
+            const priority = document.getElementById('priority').value;
+            const notes = document.getElementById('notes').value;
+            const isInstallment = document.getElementById('isInstallment').checked;
+            const installments = document.getElementById('installments').value;
+            
+            if (!description || !amount || !date) {
+                alert('Por favor, preencha todos os campos obrigatórios!');
+                return;
+            }
+            
+            if (isNaN(amount) || amount <= 0) {
+                alert('Por favor, insira um valor válido maior que zero!');
+                return;
+            }
+            
+            // Transação nova (não edição)
+            
+            // Validar formato de parcelas
+            if (isInstallment && installments) {
+                const installmentMatch = installments.match(/^(\d+)\/(\d+)$/);
+                if (!installmentMatch) {
+                    alert('Formato de parcela inválido! Use o formato: 1/12');
+                    return;
+                }
+                
+                const currentInstallment = parseInt(installmentMatch[1]);
+                const totalInstallments = parseInt(installmentMatch[2]);
+                
+                if (currentInstallment > totalInstallments || currentInstallment < 1) {
+                    alert('Número da parcela inválido!');
+                    return;
+                }
+                
+                // Criar todas as parcelas automaticamente
+                try {
+                    const baseDate = new Date(date);
+                    const installmentAmount = amount / totalInstallments;
+                    
+                    for (let i = 0; i < totalInstallments; i++) {
+                        const installmentDate = new Date(baseDate);
+                        installmentDate.setMonth(baseDate.getMonth() + i);
+                        
+                        const newTransaction = {
+                            description: `${description} (${i + 1}/${totalInstallments})`,
+                            amount: installmentAmount * (type === 'expense' ? -1 : 1),
+                            type: type,
+                            category: category,
+                            date: installmentDate.toISOString().split('T')[0],
+                            priority: priority,
+                            notes: notes,
+                            completed: false,
+                            installments: `${i + 1}/${totalInstallments}`,
+                            installmentGroup: Date.now() + '_' + Math.random().toString(36).substr(2, 9)
+                        };
+                        
+                        const docId = await saveTransactionToFirebase(newTransaction);
+                        newTransaction.id = docId;
+                        transactions.unshift(newTransaction);
+                    }
+                    
+                    console.log(`${totalInstallments} parcelas criadas automaticamente!`);
+                    
+                } catch (error) {
+                    console.error('Erro ao criar parcelas:', error);
+                    console.error('Detalhes do erro:', error.message, error.code);
+                    alert('Erro ao criar parcelas: ' + error.message);
+                    return;
+                }
+                
+            } else {
+                // Transação única
+                const newTransaction = {
+                    description: description,
+                    amount: amount * (type === 'expense' ? -1 : 1),
+                    type: type,
+                    category: category,
+                    date: date,
+                    priority: priority,
+                    notes: notes,
+                    completed: false,
+                    installments: null
+                };
+                
+                try {
+                    console.log('Salvando transação única:', newTransaction);
+                    const docId = await saveTransactionToFirebase(newTransaction);
+                    newTransaction.id = docId;
+                    transactions.unshift(newTransaction);
+                    console.log('Transação salva com sucesso, ID:', docId);
+                } catch (error) {
+                    console.error('Erro ao adicionar transação:', error);
+                    console.error('Detalhes do erro:', error.message, error.code);
+                    alert('Erro ao adicionar transação: ' + error.message);
+                    return;
+                }
+            }
+            
+            // Atualizar interface
+            renderTransactions();
+            renderReminders();
+            updateMonthlyBalance();
+            if (currentTab === 'dashboard') {
+                updateDashboard();
+            }
+            
+            // Reset form
+            document.getElementById('transactionForm').reset();
+            document.getElementById('date').value = new Date().toISOString().split('T')[0];
+            
+            // Reset installment field properly
+            const installmentField = document.getElementById('installments');
+            const installmentCheckbox = document.getElementById('isInstallment');
+            installmentField.disabled = true;
+            installmentField.value = '';
+            installmentField.style.opacity = '0.5';
+            installmentField.style.cursor = 'not-allowed';
+            installmentCheckbox.checked = false;
+
+            
+            // Mostrar feedback visual
+            const submitBtn = document.querySelector('#transactionForm button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Adicionado!';
+            submitBtn.className = submitBtn.className.replace('from-yellow-400 to-orange-500', 'from-green-400 to-green-500');
+            
+            setTimeout(() => {
+                submitBtn.innerHTML = '<i class="fas fa-plus mr-2"></i>Adicionar Transação';
+                submitBtn.className = submitBtn.className.replace('from-green-400 to-green-500', 'from-yellow-400 to-orange-500');
+            }, 2000);
+        }
+
+        // Renderizar lembretes
+        function renderReminders() {
+            const today = new Date().toISOString().split('T')[0];
+            const nextWeek = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+            
+            const dueTodayTransactions = transactions.filter(t => t.date === today && !t.completed && t.type === 'expense');
+            const dueNextWeekTransactions = transactions.filter(t => t.date > today && t.date <= nextWeek && !t.completed && t.type === 'expense');
+            
+            const remindersContainer = document.getElementById('reminders');
+            
+            // Só mostrar lembretes se houver contas vencendo
+            if (dueTodayTransactions.length === 0 && dueNextWeekTransactions.length === 0) {
+                remindersContainer.innerHTML = '';
+                return;
+            }
+            
+            remindersContainer.innerHTML = '';
+            
+            dueTodayTransactions.forEach(transaction => {
+                const reminderCard = createReminderCard(transaction, 'red', '🚨 Vence hoje!');
+                remindersContainer.appendChild(reminderCard);
+            });
+            
+            dueNextWeekTransactions.forEach(transaction => {
+                const reminderCard = createReminderCard(transaction, 'yellow', '⚠️ Próximos 7 dias');
+                remindersContainer.appendChild(reminderCard);
+            });
+        }
+
+        function createReminderCard(transaction, color, label) {
+            const card = document.createElement('div');
+            const bgColor = color === 'red' ? 'bg-red-500' : 'bg-yellow-500';
+            const textColor = color === 'red' ? 'text-red-100' : 'text-yellow-900';
+            
+            card.className = `${bgColor} rounded-xl p-4 flex items-center justify-between`;
+            card.innerHTML = `
+                <div class="flex items-center space-x-3">
+                    <div class="w-3 h-3 rounded-full ${color === 'red' ? 'bg-red-300' : 'bg-yellow-300'}"></div>
+                    <div>
+                        <p class="font-semibold ${textColor}">${transaction.description}</p>
+                        <p class="text-sm ${textColor} opacity-80">${label} - R$ ${Math.abs(transaction.amount).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</p>
+                        <p class="text-xs ${textColor} opacity-70">${new Date(transaction.date).toLocaleDateString('pt-BR')}</p>
+                    </div>
+                </div>
+                <button onclick="markAsPaid('${transaction.id}')" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-3 py-1 rounded-lg text-sm font-medium transition-all">
+                    Marcar como Pago
+                </button>
+            `;
+            
+            return card;
+        }
+
+        async function markAsPaid(transactionId) {
+            const transaction = transactions.find(t => t.id === transactionId);
+            if (transaction) {
+                transaction.completed = true;
+                
+                try {
+                    if (currentUser) {
+                        await window.firebaseUpdateDoc(
+                            window.firebaseDoc(window.firebaseDb, `users/${currentUser.uid}/events`, transactionId),
+                            { completed: true }
+                        );
+                    }
+                    
+                    renderTransactions();
+                    renderReminders();
+                    updateMonthlyBalance();
+                    updateDashboard();
+                } catch (error) {
+                    console.error('Erro ao atualizar transação:', error);
+                }
+            }
+        }
+
+        // Renderizar transações com otimização
+        function renderTransactions() {
+            const container = document.getElementById('transactionsList');
+            const filteredTransactions = getFilteredTransactions();
+            
+            if (filteredTransactions.length === 0) {
+                container.innerHTML = '<p class="text-white text-opacity-70 text-center py-8">Nenhuma transação encontrada</p>';
+                return;
+            }
+            
+            // Usar DocumentFragment para melhor performance
+            const fragment = document.createDocumentFragment();
+            
+            const categoryNames = {
+                salary: 'Salário', food: 'Alimentação', transport: 'Transporte', health: 'Saúde',
+                education: 'Educação', entertainment: 'Entretenimento', shopping: 'Compras',
+                bills: 'Contas', investment: 'Investimento', other: 'Outros'
+            };
+            
+            const priorityColors = {
+                low: 'bg-green-500',
+                medium: 'bg-yellow-500',
+                high: 'bg-red-500'
+            };
+            
+            const priorityNames = {
+                low: 'Baixa',
+                medium: 'Média',
+                high: 'Alta'
+            };
+            
+            filteredTransactions.forEach((transaction, index) => {
+                const amountColor = transaction.amount >= 0 ? 'text-green-400' : 'text-red-400';
+                const completedClass = transaction.completed ? 'transaction-completed' : '';
+                
+                const transactionDiv = document.createElement('div');
+                transactionDiv.className = `bg-white rounded-2xl p-6 ${completedClass} slide-in hover-lift transition-all duration-300 group shadow-lg border border-gray-200`;
+                transactionDiv.style.animationDelay = `${index * 0.05}s`;
+                
+                // Ícone baseado no tipo de transação
+                const transactionIcon = transaction.amount >= 0 ? 
+                    '<div class="w-16 h-16 rounded-full bg-green-500 flex items-center justify-center text-white shadow-lg"><i class="fas fa-arrow-up text-4xl"></i></div>' :
+                    '<div class="w-16 h-16 rounded-full bg-red-500 flex items-center justify-center text-white shadow-lg"><i class="fas fa-arrow-down text-4xl"></i></div>';
+
+                transactionDiv.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-6">
+                            ${transactionIcon}
+                            
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center space-x-2 mb-2">
+                                    <h4 class="font-bold text-gray-800 text-2xl truncate">
+                                        ${transaction.description}
+                                    </h4>
+                                    ${transaction.installments ? `
+                                        <span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm px-3 py-1 rounded-full font-medium">
+                                            ${transaction.installments}
+                                        </span>
+                                    ` : ''}
+                                </div>
+                                <div class="flex items-center space-x-4 text-lg text-gray-600 mb-2">
+                                    <span class="flex items-center space-x-1">
+                                        <span class="font-medium">${categoryNames[transaction.category]}</span>
+                                    </span>
+                                    <span class="flex items-center space-x-1">
+                                        <i class="fas fa-calendar-alt text-sm"></i>
+                                        <span>${new Date(transaction.date).toLocaleDateString('pt-BR')}</span>
+                                    </span>
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-4 h-4 rounded-full ${priorityColors[transaction.priority]} animate-pulse shadow-lg"></div>
+                                        <span class="text-sm text-gray-500 uppercase tracking-wide font-medium">
+                                            ${priorityNames[transaction.priority]}
+                                        </span>
+                                    </div>
+                                </div>
+                                ${transaction.notes ? `
+                                    <p class="text-lg text-gray-500 italic bg-gray-50 rounded-lg px-4 py-2 inline-block">
+                                        "${transaction.notes}"
+                                    </p>
+                                ` : ''}
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-6">
+                            <div class="text-right">
+                                <span class="font-bold ${amountColor} text-3xl">
+                                    ${transaction.amount >= 0 ? '+' : '-'} R$ ${Math.abs(transaction.amount).toLocaleString('pt-BR', {minimumFractionDigits: 2})}
+                                </span>
+                            </div>
+                            
+                            <div class="flex space-x-3 opacity-70 group-hover:opacity-100 transition-opacity">
+                                ${!transaction.completed ? `
+                                    <button class="complete-btn bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white p-4 rounded-xl btn-modern micro-bounce shadow-lg" title="Marcar como concluída" data-id="${transaction.id}">
+                                        <i class="fas fa-check text-lg"></i>
+                                    </button>
+                                ` : ''}
+                                ${transaction.amount > 0 && !transaction.inPiggyBank ? `
+                                    <button class="piggy-btn bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white p-4 rounded-xl btn-modern micro-bounce shadow-lg" title="Guardar no cofrinho" data-id="${transaction.id}">
+                                        <i class="fas fa-piggy-bank text-lg"></i>
+                                    </button>
+                                ` : ''}
+                                <button class="edit-btn bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-4 rounded-xl btn-modern micro-bounce shadow-lg" title="Editar transação" data-id="${transaction.id}">
+                                    <i class="fas fa-edit text-lg"></i>
+                                </button>
+                                <button class="delete-btn bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white p-4 rounded-xl btn-modern micro-bounce shadow-lg" title="Excluir transação" data-id="${transaction.id}">
+                                    <i class="fas fa-trash text-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                fragment.appendChild(transactionDiv);
+            });
+            
+            // Limpar container e adicionar fragment
+            container.innerHTML = '';
+            container.appendChild(fragment);
+            
+            // Adicionar event listeners após renderizar
+            container.querySelectorAll('.complete-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const id = btn.getAttribute('data-id');
+                    toggleComplete(id);
+                });
+            });
+            
+            container.querySelectorAll('.piggy-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const id = btn.getAttribute('data-id');
+                    saveToPiggyBank(id);
+                });
+            });
+            
+            container.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const id = btn.getAttribute('data-id');
+                    editTransaction(id);
+                });
+            });
+            
+            container.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const id = btn.getAttribute('data-id');
+                    deleteTransaction(id);
+                });
+            });
+        }
+
+        // Filtros e busca
+        function getFilteredTransactions() {
+            let filtered = [...transactions];
+            
+            const searchTextEl = document.getElementById('searchText');
+            const filterTypeEl = document.getElementById('filterType');
+            const filterCategoryEl = document.getElementById('filterCategory');
+            const filterMonthEl = document.getElementById('filterMonth');
+            const filterStatusEl = document.getElementById('filterStatus');
+            const quickFilterTypeEl = document.getElementById('quickFilterType');
+            
+            const searchText = searchTextEl ? searchTextEl.value.toLowerCase() : '';
+            const filterType = filterTypeEl ? filterTypeEl.value : '';
+            const filterCategory = filterCategoryEl ? filterCategoryEl.value : '';
+            const filterMonth = filterMonthEl ? filterMonthEl.value : '';
+            const filterStatus = filterStatusEl ? filterStatusEl.value : '';
+            const quickFilterType = quickFilterTypeEl ? quickFilterTypeEl.value : '';
+            
+            if (searchText) {
+                filtered = filtered.filter(t => 
+                    t.description.toLowerCase().includes(searchText) ||
+                    (t.notes && t.notes.toLowerCase().includes(searchText))
+                );
+            }
+            
+            if (filterMonth) {
+                filtered = filtered.filter(t => t.date.startsWith(filterMonth));
+            }
+            
+            if (filterType) {
+                filtered = filtered.filter(t => t.type === filterType);
+            }
+            
+            if (quickFilterType) {
+                filtered = filtered.filter(t => t.type === quickFilterType);
+            }
+            
+            if (filterStatus) {
+                if (filterStatus === 'completed') {
+                    filtered = filtered.filter(t => t.completed);
+                } else if (filterStatus === 'pending') {
+                    filtered = filtered.filter(t => !t.completed);
+                }
+            }
+            
+            if (filterCategory) {
+                filtered = filtered.filter(t => t.category === filterCategory);
+            }
+            
+            filtered.sort((a, b) => {
+                let aValue = sortBy === 'date' ? new Date(a.date) : Math.abs(a.amount);
+                let bValue = sortBy === 'date' ? new Date(b.date) : Math.abs(b.amount);
+                
+                if (sortOrder === 'asc') {
+                    return aValue > bValue ? 1 : -1;
+                } else {
+                    return aValue < bValue ? 1 : -1;
+                }
+            });
+            
+            return filtered;
+        }
+
+        function applyFilters() {
+            renderTransactions();
+        }
+
+        function resetFilters() {
+            const searchTextEl = document.getElementById('searchText');
+            const filterTypeEl = document.getElementById('filterType');
+            const filterCategoryEl = document.getElementById('filterCategory');
+            const filterMonthEl = document.getElementById('filterMonth');
+            const filterStatusEl = document.getElementById('filterStatus');
+            const quickFilterTypeEl = document.getElementById('quickFilterType');
+            
+            if (searchTextEl) searchTextEl.value = '';
+            if (filterTypeEl) filterTypeEl.value = '';
+            if (filterCategoryEl) filterCategoryEl.value = '';
+            if (filterMonthEl) filterMonthEl.value = '';
+            if (filterStatusEl) filterStatusEl.value = '';
+            if (quickFilterTypeEl) quickFilterTypeEl.value = '';
+            
+            renderTransactions();
+        }
+
+        function resetDashboardFilters() {
+            document.getElementById('dashboardMonth').value = getCurrentMonth();
+            document.getElementById('dashboardStatus').value = '';
+            updateDashboard();
+        }
+
+        function quickSort() {
+            const sortBy = document.getElementById('quickSortBy').value;
+            sortTransactions(sortBy);
+        }
+
+        function quickFilter() {
+            renderTransactions();
+        }
+
+        function sortTransactions(by) {
+            if (sortBy === by) {
+                sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+            } else {
+                sortBy = by;
+                sortOrder = 'desc';
+            }
+            updateSortButtons();
+            renderTransactions();
+        }
+
+        function toggleSortOrder(by) {
+            sortTransactions(by);
+        }
+
+        function updateSortButtons() {
+            const dateBtn = document.getElementById('sortDateBtn');
+            const amountBtn = document.getElementById('sortAmountBtn');
+            
+            // Reset both buttons
+            dateBtn.className = 'bg-white bg-opacity-10 hover:bg-opacity-20 text-white px-4 py-2 rounded-lg transition-all flex items-center space-x-2 font-medium';
+            amountBtn.className = 'bg-white bg-opacity-10 hover:bg-opacity-20 text-white px-4 py-2 rounded-lg transition-all flex items-center space-x-2 font-medium';
+            
+            // Highlight active button
+            if (sortBy === 'date') {
+                dateBtn.className = 'bg-yellow-400 bg-opacity-80 hover:bg-opacity-100 text-gray-900 px-4 py-2 rounded-lg transition-all flex items-center space-x-2 font-medium shadow-lg';
+                dateBtn.innerHTML = `<i class="fas fa-calendar-alt"></i><span class="hidden sm:inline">Data</span><i class="fas fa-sort-${sortOrder === 'asc' ? 'up' : 'down'} text-xs"></i>`;
+            } else {
+                dateBtn.innerHTML = `<i class="fas fa-calendar-alt"></i><span class="hidden sm:inline">Data</span><i class="fas fa-sort-down text-xs"></i>`;
+            }
+            
+            if (sortBy === 'amount') {
+                amountBtn.className = 'bg-yellow-400 bg-opacity-80 hover:bg-opacity-100 text-gray-900 px-4 py-2 rounded-lg transition-all flex items-center space-x-2 font-medium shadow-lg';
+                amountBtn.innerHTML = `<i class="fas fa-dollar-sign"></i><span class="hidden sm:inline">Valor</span><i class="fas fa-sort-${sortOrder === 'asc' ? 'up' : 'down'} text-xs"></i>`;
+            } else {
+                amountBtn.innerHTML = `<i class="fas fa-dollar-sign"></i><span class="hidden sm:inline">Valor</span><i class="fas fa-sort-down text-xs"></i>`;
+            }
+        }
+
+        // Ações das transações
+        async function toggleComplete(id) {
+            const transaction = transactions.find(t => t.id === id);
+            if (transaction) {
+                transaction.completed = !transaction.completed;
+                
+                try {
+                    if (currentUser) {
+                        await window.firebaseUpdateDoc(
+                            window.firebaseDoc(window.firebaseDb, `users/${currentUser.uid}/events`, id),
+                            { completed: transaction.completed }
+                        );
+                    }
+                    
+                    renderTransactions();
+                    renderReminders();
+                    updateMonthlyBalance();
+                    updateDashboard();
+                } catch (error) {
+                    console.error('Erro ao atualizar transação:', error);
+                }
+            }
+        }
+
+        let editingTransactionId = null;
+
+        function editTransaction(id) {
+            const transaction = transactions.find(t => t.id === id);
+            if (transaction) {
+                editingTransactionId = id;
+                
+                // Preencher os campos do modal de edição
+                document.getElementById('editDescription').value = transaction.description;
+                document.getElementById('editAmount').value = Math.abs(transaction.amount);
+                document.getElementById('editType').value = transaction.type;
+                document.getElementById('editCategory').value = transaction.category;
+                document.getElementById('editDate').value = transaction.date;
+                document.getElementById('editPriority').value = transaction.priority;
+                document.getElementById('editNotes').value = transaction.notes || '';
+                
+                if (transaction.installments) {
+                    document.getElementById('editIsInstallment').checked = true;
+                    const installmentField = document.getElementById('editInstallments');
+                    installmentField.disabled = false;
+                    installmentField.value = transaction.installments;
+                    installmentField.style.opacity = '1';
+                    installmentField.style.cursor = 'text';
+                } else {
+                    document.getElementById('editIsInstallment').checked = false;
+                    const installmentField = document.getElementById('editInstallments');
+                    installmentField.disabled = true;
+                    installmentField.value = '';
+                    installmentField.style.opacity = '0.5';
+                    installmentField.style.cursor = 'not-allowed';
+                }
+                
+                // Mostrar o modal
+                document.getElementById('editTransactionModal').classList.remove('hidden');
+            }
+        }
+
+        // Função para alternar campo de parcelas no modal de edição
+        function toggleEditInstallmentField() {
+            const checkbox = document.getElementById('editIsInstallment');
+            const installmentField = document.getElementById('editInstallments');
+            
+            if (checkbox.checked) {
+                installmentField.disabled = false;
+                installmentField.focus();
+                installmentField.style.opacity = '1';
+                installmentField.style.cursor = 'text';
+            } else {
+                installmentField.disabled = true;
+                installmentField.value = '';
+                installmentField.style.opacity = '0.5';
+                installmentField.style.cursor = 'not-allowed';
+            }
+        }
+
+        // Função para fechar o modal de edição
+        function closeEditModal() {
+            document.getElementById('editTransactionModal').classList.add('hidden');
+            editingTransactionId = null;
+        }
+
+        // Função para atualizar transação via modal
+        async function updateTransaction(e) {
+            e.preventDefault();
+            
+            if (!editingTransactionId || !currentUser) {
+                alert('Erro: Transação não encontrada ou usuário não autenticado');
+                return;
+            }
+            
+            const description = document.getElementById('editDescription').value;
+            const amount = parseFloat(document.getElementById('editAmount').value);
+            const type = document.getElementById('editType').value;
+            const category = document.getElementById('editCategory').value;
+            const date = document.getElementById('editDate').value;
+            const priority = document.getElementById('editPriority').value;
+            const notes = document.getElementById('editNotes').value;
+            const isInstallment = document.getElementById('editIsInstallment').checked;
+            const installments = document.getElementById('editInstallments').value;
+            
+            if (!description || !amount || !date) {
+                alert('Por favor, preencha todos os campos obrigatórios!');
+                return;
+            }
+            
+            if (isNaN(amount) || amount <= 0) {
+                alert('Por favor, insira um valor válido maior que zero!');
+                return;
+            }
+            
+            // Validar formato de parcelas se estiver marcado
+            if (isInstallment && installments) {
+                const installmentMatch = installments.match(/^(\d+)\/(\d+)$/);
+                if (!installmentMatch) {
+                    alert('Formato de parcela inválido! Use o formato: 1/12');
+                    return;
+                }
+                
+                const currentInstallment = parseInt(installmentMatch[1]);
+                const totalInstallments = parseInt(installmentMatch[2]);
+                
+                if (currentInstallment > totalInstallments || currentInstallment < 1) {
+                    alert('Número da parcela inválido!');
+                    return;
+                }
+                
+                // Se está criando parcelas, criar todas as parcelas automaticamente
+                try {
+                    const baseDate = new Date(date);
+                    const installmentAmount = amount / totalInstallments;
+                    
+                    // Primeiro, deletar a transação original
+                    await window.firebaseDeleteDoc(
+                        window.firebaseDoc(window.firebaseDb, `users/${currentUser.uid}/events`, editingTransactionId)
+                    );
+                    
+                    // Remover do array local
+                    transactions = transactions.filter(t => t.id !== editingTransactionId);
+                    
+                    // Criar todas as parcelas
+                    for (let i = 0; i < totalInstallments; i++) {
+                        const installmentDate = new Date(baseDate);
+                        installmentDate.setMonth(baseDate.getMonth() + i);
+                        
+                        const newTransaction = {
+                            description: `${description} (${i + 1}/${totalInstallments})`,
+                            amount: installmentAmount * (type === 'expense' ? -1 : 1),
+                            type: type,
+                            category: category,
+                            date: installmentDate.toISOString().split('T')[0],
+                            priority: priority,
+                            notes: notes,
+                            completed: false,
+                            installments: `${i + 1}/${totalInstallments}`,
+                            installmentGroup: Date.now() + '_' + Math.random().toString(36).substr(2, 9)
+                        };
+                        
+                        const docId = await saveTransactionToFirebase(newTransaction);
+                        newTransaction.id = docId;
+                        transactions.unshift(newTransaction);
+                    }
+                    
+                    console.log(`${totalInstallments} parcelas criadas automaticamente!`);
+                    
+                } catch (error) {
+                    console.error('Erro ao criar parcelas:', error);
+                    alert('Erro ao criar parcelas: ' + error.message);
+                    return;
+                }
+                
+            } else {
+                // Atualização normal da transação
+                try {
+                    const updatedTransaction = {
+                        description: description,
+                        amount: amount * (type === 'expense' ? -1 : 1),
+                        type: type,
+                        category: category,
+                        date: date,
+                        priority: priority,
+                        notes: notes,
+                        installments: isInstallment ? installments : null
+                    };
+                    
+                    // Atualizar no Firebase
+                    await window.firebaseUpdateDoc(
+                        window.firebaseDoc(window.firebaseDb, `users/${currentUser.uid}/events`, editingTransactionId),
+                        updatedTransaction
+                    );
+                    
+                    // Atualizar no array local
+                    const transactionIndex = transactions.findIndex(t => t.id === editingTransactionId);
+                    if (transactionIndex !== -1) {
+                        transactions[transactionIndex] = { ...transactions[transactionIndex], ...updatedTransaction };
+                    }
+                    
+                } catch (error) {
+                    console.error('Erro ao atualizar transação:', error);
+                    alert('Erro ao atualizar transação: ' + error.message);
+                    return;
+                }
+            }
+            
+            // Atualizar interface
+            renderTransactions();
+            renderReminders();
+            updateMonthlyBalance();
+            if (currentTab === 'dashboard') {
+                updateDashboard();
+            }
+            
+            // Fechar modal
+            closeEditModal();
+            
+            // Mostrar feedback de sucesso
+            alert('Transação atualizada com sucesso!');
+        }
+
+        async function deleteTransaction(id) {
+            try {
+                if (currentUser) {
+                    await window.firebaseDeleteDoc(
+                        window.firebaseDoc(window.firebaseDb, `users/${currentUser.uid}/events`, id)
+                    );
+                }
+                
+                transactions = transactions.filter(t => t.id !== id);
+                renderTransactions();
+                renderReminders();
+                updateMonthlyBalance();
+                updateDashboard();
+            } catch (error) {
+                console.error('Erro ao deletar transação:', error);
+            }
+        }
+
+        // Dashboard
+        function updateDashboard() {
+            const month = document.getElementById('dashboardMonth').value;
+            const status = document.getElementById('dashboardStatus').value;
+            
+            let filteredTransactions = transactions.filter(t => t.date.startsWith(month));
+            
+            if (status === 'completed') {
+                filteredTransactions = filteredTransactions.filter(t => t.completed);
+            } else if (status === 'pending') {
+                filteredTransactions = filteredTransactions.filter(t => !t.completed);
+            }
+            
+            const income = filteredTransactions.filter(t => t.amount > 0).reduce((sum, t) => sum + t.amount, 0);
+            const expenses = Math.abs(filteredTransactions.filter(t => t.amount < 0).reduce((sum, t) => sum + t.amount, 0));
+            const pending = Math.abs(filteredTransactions.filter(t => t.amount < 0 && !t.completed).reduce((sum, t) => sum + t.amount, 0));
+            
+            document.getElementById('totalIncome').textContent = `R$ ${income.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+            document.getElementById('totalExpenses').textContent = `R$ ${expenses.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+            document.getElementById('totalPending').textContent = `R$ ${pending.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+            
+            updateCharts(filteredTransactions);
+        }
+
+        function updateCharts(transactions) {
+            // Gráfico Receitas vs Despesas
+            const incomeExpenseCtx = document.getElementById('incomeExpenseChart').getContext('2d');
+            
+            if (window.incomeExpenseChart && typeof window.incomeExpenseChart.destroy === 'function') {
+                window.incomeExpenseChart.destroy();
+            }
+            
+            const income = transactions.filter(t => t.amount > 0).reduce((sum, t) => sum + t.amount, 0);
+            const expenses = Math.abs(transactions.filter(t => t.amount < 0).reduce((sum, t) => sum + t.amount, 0));
+            
+            window.incomeExpenseChart = new Chart(incomeExpenseCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Receitas', 'Despesas'],
+                    datasets: [{
+                        data: [income, expenses],
+                        backgroundColor: ['#10B981', '#EF4444'],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { color: '#374151' },
+                            grid: { color: 'rgba(55, 65, 81, 0.1)' }
+                        },
+                        x: {
+                            ticks: { color: '#374151' },
+                            grid: { color: 'rgba(55, 65, 81, 0.1)' }
+                        }
+                    }
+                }
+            });
+            
+            // Gráfico por Categoria
+            const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+            
+            if (window.categoryChart && typeof window.categoryChart.destroy === 'function') {
+                window.categoryChart.destroy();
+            }
+            
+            const expensesByCategory = {};
+            transactions.filter(t => t.amount < 0).forEach(t => {
+                expensesByCategory[t.category] = (expensesByCategory[t.category] || 0) + Math.abs(t.amount);
+            });
+            
+            const categoryLabels = Object.keys(expensesByCategory);
+            const categoryData = Object.values(expensesByCategory);
+            const categoryColors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', '#FF6384', '#C9CBCF', '#4BC0C0', '#FF6384'];
+            
+            if (categoryLabels.length > 0) {
+                window.categoryChart = new Chart(categoryCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: categoryLabels,
+                        datasets: [{
+                            data: categoryData,
+                            backgroundColor: categoryColors.slice(0, categoryLabels.length)
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: { color: '#374151' }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Funções de detalhes clicáveis
+        function showIncomeDetails() {
+            const currentDate = new Date();
+            const currentMonth = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}`;
+            const nextMonth = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 2).padStart(2, '0')}`;
+            const currentYear = currentDate.getFullYear().toString();
+            
+            const currentMonthIncome = transactions.filter(t => t.date.startsWith(currentMonth) && t.amount > 0);
+            const nextMonthIncome = transactions.filter(t => t.date.startsWith(nextMonth) && t.amount > 0);
+            const yearIncome = transactions.filter(t => t.date.startsWith(currentYear) && t.amount > 0);
+            
+            const currentMonthTotal = currentMonthIncome.reduce((sum, t) => sum + t.amount, 0);
+            const nextMonthTotal = nextMonthIncome.reduce((sum, t) => sum + t.amount, 0);
+            const yearTotal = yearIncome.reduce((sum, t) => sum + t.amount, 0);
+            
+            const modalContent = `
+                <div class="space-y-6">
+                    <div class="bg-green-50 rounded-xl p-6 border border-green-200">
+                        <h4 class="text-xl font-bold text-green-800 mb-4 flex items-center">
+                            <i class="fas fa-calendar-alt mr-2"></i>
+                            Resumo de Receitas
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="text-center">
+                                <p class="text-green-600 font-medium">Mês Atual</p>
+                                <p class="text-2xl font-bold text-green-800">R$ ${currentMonthTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</p>
+                                <p class="text-sm text-green-600">${currentMonth}</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-green-600 font-medium">Próximo Mês</p>
+                                <p class="text-2xl font-bold text-green-800">R$ ${nextMonthTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</p>
+                                <p class="text-sm text-green-600">${nextMonth}</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-green-600 font-medium">Ano Todo</p>
+                                <p class="text-2xl font-bold text-green-800">R$ ${yearTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</p>
+                                <p class="text-sm text-green-600">${currentYear}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('modalTitle').textContent = 'Receitas - Resumo';
+            document.getElementById('modalContent').innerHTML = modalContent;
+            document.getElementById('detailsModal').classList.remove('hidden');
+        }
+
+        function showExpenseDetails() {
+            const currentDate = new Date();
+            const currentMonth = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}`;
+            const nextMonth = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 2).padStart(2, '0')}`;
+            const currentYear = currentDate.getFullYear().toString();
+            
+            const currentMonthExpenses = transactions.filter(t => t.date.startsWith(currentMonth) && t.amount < 0);
+            const nextMonthExpenses = transactions.filter(t => t.date.startsWith(nextMonth) && t.amount < 0);
+            const yearExpenses = transactions.filter(t => t.date.startsWith(currentYear) && t.amount < 0);
+            
+            const currentMonthTotal = Math.abs(currentMonthExpenses.reduce((sum, t) => sum + t.amount, 0));
+            const nextMonthTotal = Math.abs(nextMonthExpenses.reduce((sum, t) => sum + t.amount, 0));
+            const yearTotal = Math.abs(yearExpenses.reduce((sum, t) => sum + t.amount, 0));
+            
+            const modalContent = `
+                <div class="space-y-6">
+                    <div class="bg-red-50 rounded-xl p-6 border border-red-200">
+                        <h4 class="text-xl font-bold text-red-800 mb-4 flex items-center">
+                            <i class="fas fa-calendar-alt mr-2"></i>
+                            Resumo de Despesas
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="text-center">
+                                <p class="text-red-600 font-medium">Mês Atual</p>
+                                <p class="text-2xl font-bold text-red-800">R$ ${currentMonthTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</p>
+                                <p class="text-sm text-red-600">${currentMonth}</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-red-600 font-medium">Próximo Mês</p>
+                                <p class="text-2xl font-bold text-red-800">R$ ${nextMonthTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</p>
+                                <p class="text-sm text-red-600">${nextMonth}</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-red-600 font-medium">Ano Todo</p>
+                                <p class="text-2xl font-bold text-red-800">R$ ${yearTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</p>
+                                <p class="text-sm text-red-600">${currentYear}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('modalTitle').textContent = 'Despesas - Resumo';
+            document.getElementById('modalContent').innerHTML = modalContent;
+            document.getElementById('detailsModal').classList.remove('hidden');
+        }
+
+        function showPendingBills() {
+            const currentDate = new Date();
+            const currentMonth = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}`;
+            const nextMonth = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 2).padStart(2, '0')}`;
+            const currentYear = currentDate.getFullYear().toString();
+            
+            const currentMonthPending = transactions.filter(t => t.date.startsWith(currentMonth) && t.amount < 0 && !t.completed);
+            const nextMonthPending = transactions.filter(t => t.date.startsWith(nextMonth) && t.amount < 0 && !t.completed);
+            const yearPending = transactions.filter(t => t.date.startsWith(currentYear) && t.amount < 0 && !t.completed);
+            
+            const currentMonthTotal = Math.abs(currentMonthPending.reduce((sum, t) => sum + t.amount, 0));
+            const nextMonthTotal = Math.abs(nextMonthPending.reduce((sum, t) => sum + t.amount, 0));
+            const yearTotal = Math.abs(yearPending.reduce((sum, t) => sum + t.amount, 0));
+            
+            const modalContent = `
+                <div class="space-y-6">
+                    <div class="bg-orange-50 rounded-xl p-6 border border-orange-200">
+                        <h4 class="text-xl font-bold text-orange-800 mb-4 flex items-center">
+                            <i class="fas fa-clock mr-2"></i>
+                            Resumo de Contas Pendentes
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="text-center">
+                                <p class="text-orange-600 font-medium">Este Mês</p>
+                                <p class="text-2xl font-bold text-orange-800">R$ ${currentMonthTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</p>
+                                <p class="text-sm text-orange-600">${currentMonth}</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-orange-600 font-medium">Próximo Mês</p>
+                                <p class="text-2xl font-bold text-orange-800">R$ ${nextMonthTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</p>
+                                <p class="text-sm text-orange-600">${nextMonth}</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-orange-600 font-medium">Ano Todo</p>
+                                <p class="text-2xl font-bold text-orange-800">R$ ${yearTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</p>
+                                <p class="text-sm text-orange-600">${currentYear}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('modalTitle').textContent = 'Contas Pendentes - Resumo';
+            document.getElementById('modalContent').innerHTML = modalContent;
+            document.getElementById('detailsModal').classList.remove('hidden');
+        }
+
+        function createTransactionList(transactionsList) {
+            if (transactionsList.length === 0) {
+                return '<p class="text-white text-opacity-70 text-center py-4">Nenhuma transação encontrada</p>';
+            }
+            
+            const total = transactionsList.reduce((sum, t) => sum + Math.abs(t.amount), 0);
+            
+            return `
+                <div class="bg-white bg-opacity-5 rounded-lg p-3 mb-3">
+                    <p class="text-white font-semibold">Total: R$ ${total.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</p>
+                </div>
+                ${transactionsList.map(transaction => {
+                    const amountColor = transaction.amount >= 0 ? 'text-green-400' : 'text-red-400';
+                    const statusIcon = transaction.completed ? '✅' : '⏳';
+                    
+                    return `
+                        <div class="bg-white bg-opacity-5 rounded-lg p-3 border border-white border-opacity-10 mb-2">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-white font-medium">${statusIcon} ${transaction.description}</p>
+                                    <p class="text-white text-opacity-70 text-sm">${transaction.category} • ${new Date(transaction.date).toLocaleDateString('pt-BR')}</p>
+                                    ${transaction.notes ? `<p class="text-white text-opacity-50 text-xs">${transaction.notes}</p>` : ''}
+                                </div>
+                                <span class="font-bold ${amountColor}">
+                                    R$ ${Math.abs(transaction.amount).toLocaleString('pt-BR', {minimumFractionDigits: 2})}
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                }).join('')}
+            `;
+        }
+
+        function showDetailsModal(title, transactionsList, type) {
+            document.getElementById('modalTitle').textContent = title;
+            const modalContent = document.getElementById('modalContent');
+            
+            if (transactionsList.length === 0) {
+                modalContent.innerHTML = '<p class="text-white text-opacity-70 text-center py-8">Nenhuma transação encontrada</p>';
+            } else {
+                modalContent.innerHTML = transactionsList.map(transaction => {
+                    const amountColor = transaction.amount >= 0 ? 'text-green-400' : 'text-red-400';
+                    const statusIcon = transaction.completed ? '✅' : '⏳';
+                    
+                    return `
+                        <div class="bg-white bg-opacity-5 rounded-lg p-4 border border-white border-opacity-10">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-white font-medium">${statusIcon} ${transaction.description}</p>
+                                    <p class="text-white text-opacity-70 text-sm">${transaction.category} • ${new Date(transaction.date).toLocaleDateString('pt-BR')}</p>
+                                    ${transaction.notes ? `<p class="text-white text-opacity-50 text-xs">${transaction.notes}</p>` : ''}
+                                </div>
+                                <span class="font-bold ${amountColor}">
+                                    R$ ${Math.abs(transaction.amount).toLocaleString('pt-BR', {minimumFractionDigits: 2})}
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+            
+            document.getElementById('detailsModal').classList.remove('hidden');
+        }
+
+        function closeDetailsModal() {
+            document.getElementById('detailsModal').classList.add('hidden');
+        }
+
+        // Variáveis do calendário
+        let currentCalendarDate = new Date();
+
+        // Funções do calendário
+        function renderCalendar() {
+            const year = currentCalendarDate.getFullYear();
+            const month = currentCalendarDate.getMonth();
+            
+            const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+                              'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+            document.getElementById('calendarTitle').textContent = `${monthNames[month]} ${year}`;
+            
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const startDate = new Date(firstDay);
+            startDate.setDate(startDate.getDate() - firstDay.getDay());
+            
+            const calendarGrid = document.getElementById('calendarGrid');
+            calendarGrid.innerHTML = '';
+            
+            for (let i = 0; i < 42; i++) {
+                const currentDate = new Date(startDate);
+                currentDate.setDate(startDate.getDate() + i);
+                
+                const dayElement = createDayElement(currentDate, month);
+                calendarGrid.appendChild(dayElement);
+            }
+        }
+
+        function createDayElement(date, currentMonth) {
+            const dayDiv = document.createElement('div');
+            const dateStr = date.toISOString().split('T')[0];
+            const dayTransactions = transactions.filter(t => t.date === dateStr);
+            const isCurrentMonth = date.getMonth() === currentMonth;
+            const isToday = dateStr === new Date().toISOString().split('T')[0];
+            const isSelected = selectedCalendarDay === dateStr;
+            
+            let classes = 'relative p-2 min-h-[60px] border border-gray-200 rounded-lg cursor-pointer transition-all hover:bg-gray-50';
+            
+            if (!isCurrentMonth) {
+                classes += ' opacity-30';
+            }
+            
+            if (isToday) {
+                classes += ' bg-gradient-to-r from-green-400 to-green-600 text-white font-bold';
+            }
+            
+            if (isSelected) {
+                classes += ' ring-2 ring-yellow-400 bg-yellow-50';
+            }
+            
+            dayDiv.className = classes;
+            dayDiv.onclick = () => {
+                selectedCalendarDay = dateStr;
+                renderCalendar(); // Re-render para mostrar seleção
+                showDayDetails(date, dayTransactions);
+            };
+            
+            const dayNumber = document.createElement('div');
+            dayNumber.className = isToday ? 'text-white font-bold text-sm mb-1' : 'text-gray-800 font-semibold text-sm mb-1';
+            dayNumber.textContent = date.getDate();
+            dayDiv.appendChild(dayNumber);
+            
+            if (dayTransactions.length > 0) {
+                const indicators = document.createElement('div');
+                indicators.className = 'flex flex-wrap gap-1';
+                
+                const income = dayTransactions.filter(t => t.amount > 0).length;
+                const expenses = dayTransactions.filter(t => t.amount < 0).length;
+                const dueSoon = dayTransactions.filter(t => !t.completed && t.amount < 0).length;
+                
+                if (income > 0) {
+                    const incomeIndicator = document.createElement('div');
+                    incomeIndicator.className = 'w-2 h-2 bg-green-500 rounded-full';
+                    indicators.appendChild(incomeIndicator);
+                }
+                
+                if (expenses > 0) {
+                    const expenseIndicator = document.createElement('div');
+                    expenseIndicator.className = 'w-2 h-2 bg-red-500 rounded-full';
+                    indicators.appendChild(expenseIndicator);
+                }
+                
+                if (dueSoon > 0) {
+                    const dueIndicator = document.createElement('div');
+                    const today = new Date().toISOString().split('T')[0];
+                    const isTodayDate = dateStr === today;
+                    dueIndicator.className = `w-2 h-2 ${isTodayDate ? 'bg-orange-500' : 'bg-yellow-500'} rounded-full animate-pulse`;
+                    indicators.appendChild(dueIndicator);
+                }
+                
+                dayDiv.appendChild(indicators);
+            }
+            
+            return dayDiv;
+        }
+
+        function showDayDetails(date, dayTransactions) {
+            const dayDetails = document.getElementById('dayDetails');
+            const selectedDayTitle = document.getElementById('selectedDayTitle');
+            const dayTransactionsContainer = document.getElementById('dayTransactions');
+            
+            selectedDayTitle.textContent = `Transações de ${date.toLocaleDateString('pt-BR')}`;
+            
+            if (dayTransactions.length === 0) {
+                dayTransactionsContainer.innerHTML = '<p class="text-gray-600 text-center py-4">Nenhuma transação neste dia</p>';
+            } else {
+                dayTransactionsContainer.innerHTML = dayTransactions.map(transaction => {
+                    const amountColor = transaction.amount >= 0 ? 'text-green-600' : 'text-red-600';
+                    const statusIcon = transaction.completed ? '✅' : '⏳';
+                    
+                    return `
+                        <div class="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-gray-800 font-medium">${statusIcon} ${transaction.description}</p>
+                                    <p class="text-gray-600 text-sm">${transaction.category}</p>
+                                </div>
+                                <span class="font-bold ${amountColor}">
+                                    R$ ${Math.abs(transaction.amount).toLocaleString('pt-BR', {minimumFractionDigits: 2})}
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+            
+            dayDetails.classList.remove('hidden');
+            dayDetails.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function previousMonth() {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() - 1);
+            renderCalendar();
+        }
+
+        function nextMonth() {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() + 1);
+            renderCalendar();
+        }
+
+        // Funções do Cofrinho
+        let currentTransactionToSave = null;
+
+        async function saveToPiggyBank(transactionId) {
+            const transaction = transactions.find(t => t.id === transactionId);
+            if (!transaction || transaction.amount <= 0) {
+                alert('Apenas receitas podem ser guardadas no cofrinho!');
+                return;
+            }
+            
+            if (piggyBankData.goals.length === 0) {
+                alert('Você precisa criar pelo menos uma meta antes de guardar dinheiro no cofrinho!');
+                return;
+            }
+            
+            // Armazenar transação atual e mostrar modal de escolha
+            currentTransactionToSave = transaction;
+            showChooseGoalModal();
+        }
+
+        async function saveToSpecificGoal(goalId) {
+            if (!currentTransactionToSave) return;
+            
+            const goal = piggyBankData.goals.find(g => g.id === goalId);
+            if (!goal) {
+                alert('Meta não encontrada!');
+                return;
+            }
+            
+            try {
+                // Marcar transação como guardada no cofrinho e completada
+                currentTransactionToSave.inPiggyBank = true;
+                currentTransactionToSave.completed = true;
+                
+                // Atualizar no Firebase
+                if (currentUser) {
+                    await window.firebaseUpdateDoc(
+                        window.firebaseDoc(window.firebaseDb, `users/${currentUser.uid}/events`, currentTransactionToSave.id),
+                        { 
+                            inPiggyBank: true,
+                            completed: true
+                        }
+                    );
+                }
+                
+                // Adicionar valor à meta específica
+                goal.current += currentTransactionToSave.amount;
+                
+                // Adicionar ao histórico do cofrinho
+                const historyEntry = {
+                    id: Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+                    type: 'deposit',
+                    amount: currentTransactionToSave.amount,
+                    description: `${currentTransactionToSave.description}`,
+                    date: new Date().toISOString().split('T')[0],
+                    goalId: goalId,
+                    goalName: goal.name,
+                    originalTransactionId: currentTransactionToSave.id
+                };
+                
+                piggyBankData.history.unshift(historyEntry);
+                piggyBankData.total += currentTransactionToSave.amount;
+                
+                // Salvar dados do cofrinho
+                await savePiggyBankData();
+                
+                // Atualizar interface
+                renderTransactions();
+                updateMonthlyBalance();
+                updatePiggyBank();
+                closeChooseGoalModal();
+                
+                // Verificar se a meta foi atingida
+                if (goal.current >= goal.target) {
+                    setTimeout(() => {
+                        alert(`🎉 Parabéns! Você atingiu a meta "${goal.name}"!\n\nValor guardado: R$ ${goal.current.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`);
+                    }, 500);
+                } else {
+                    alert(`Valor guardado na meta "${goal.name}" com sucesso!\n\nProgresso: R$ ${goal.current.toLocaleString('pt-BR', {minimumFractionDigits: 2})} de R$ ${goal.target.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`);
+                }
+                
+            } catch (error) {
+                console.error('Erro ao guardar no cofrinho:', error);
+                alert('Erro ao guardar no cofrinho: ' + error.message);
+            }
+        }
+
+        async function savePiggyBankData() {
+            if (!currentUser) return;
+            
+            try {
+                // Tentar atualizar documento existente
+                const piggyBankRef = window.firebaseDoc(window.firebaseDb, `users/${currentUser.uid}/piggybank/data`);
+                
+                try {
+                    await window.firebaseUpdateDoc(piggyBankRef, piggyBankData);
+                    console.log('Dados do cofrinho salvos com sucesso');
+                } catch (updateError) {
+                    if (updateError.code === 'not-found') {
+                        // Se não existe, criar novo documento com ID específico
+                        await window.firebaseAddDoc(
+                            window.firebaseCollection(window.firebaseDb, `users/${currentUser.uid}/piggybank`),
+                            { ...piggyBankData, id: 'data' }
+                        );
+                        console.log('Novo documento do cofrinho criado');
+                    } else {
+                        throw updateError;
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Erro ao salvar dados do cofrinho:', error);
+                throw error; // Re-throw para que as funções chamadoras possam tratar
+            }
+        }
+
+        async function loadPiggyBankData() {
+            if (!currentUser) return;
+            
+            try {
+                const querySnapshot = await window.firebaseGetDocs(
+                    window.firebaseCollection(window.firebaseDb, `users/${currentUser.uid}/piggybank`)
+                );
+                
+                let dataFound = false;
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    if (doc.id === 'data' || data.id === 'data') {
+                        piggyBankData = {
+                            total: data.total || 0,
+                            goals: data.goals || [],
+                            history: data.history || []
+                        };
+                        dataFound = true;
+                    }
+                });
+                
+                // Se não encontrou dados, inicializar com valores padrão
+                if (!dataFound) {
+                    piggyBankData = {
+                        total: 0,
+                        goals: [],
+                        history: []
+                    };
+                }
+                
+                console.log('Dados do cofrinho carregados:', piggyBankData);
+                
+            } catch (error) {
+                console.error('Erro ao carregar dados do cofrinho:', error);
+                // Inicializar com valores padrão em caso de erro
+                piggyBankData = {
+                    total: 0,
+                    goals: [],
+                    history: []
+                };
+            }
+        }
+
+        function updatePiggyBank() {
+            // Atualizar valor total
+            document.getElementById('piggyBankTotal').textContent = 
+                `R$ ${piggyBankData.total.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+            
+            // Renderizar metas e histórico
+            renderGoalsList();
+            renderPiggyBankHistory();
+        }
+
+        function renderGoalsList() {
+            const container = document.getElementById('goalsList');
+            
+            if (piggyBankData.goals.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8">
+                        <div class="w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-bullseye text-2xl text-gray-900"></i>
+                        </div>
+                        <p class="text-white text-opacity-70 mb-4">Nenhuma meta criada ainda</p>
+                        <button onclick="showCreateGoalModal()" class="bg-gradient-to-r from-pink-500 to-pink-600 text-white px-6 py-3 rounded-xl font-medium hover:shadow-lg transition-all">
+                            <i class="fas fa-plus mr-2"></i>
+                            Criar Primeira Meta
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Usar DocumentFragment para melhor performance
+            const fragment = document.createDocumentFragment();
+            
+            piggyBankData.goals.forEach((goal, index) => {
+                const progress = goal.target > 0 ? (goal.current / goal.target) * 100 : 0;
+                const isCompleted = progress >= 100;
+                
+                const goalDiv = document.createElement('div');
+                goalDiv.className = 'bg-white bg-opacity-5 rounded-xl p-6 border border-white border-opacity-10 slide-in';
+                goalDiv.style.animationDelay = `${index * 0.1}s`;
+                
+                goalDiv.innerHTML = `
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <h4 class="text-xl font-bold text-white">${goal.name}</h4>
+                                ${isCompleted ? '<span class="bg-green-500 text-white text-xs px-2 py-1 rounded-full">✅ Concluída</span>' : ''}
+                            </div>
+                            ${goal.description ? `<p class="text-white text-opacity-70 text-sm mb-3">${goal.description}</p>` : ''}
+                            
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-white text-opacity-70">Progresso</span>
+                                    <span class="text-white font-medium">${Math.round(progress)}%</span>
+                                </div>
+                                <div class="w-full bg-white bg-opacity-20 rounded-full h-3">
+                                    <div class="bg-gradient-to-r from-pink-400 to-yellow-400 h-3 rounded-full transition-all duration-500" style="width: ${Math.min(progress, 100)}%"></div>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-pink-400 font-bold">R$ ${goal.current.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
+                                    <span class="text-yellow-400 font-bold">R$ ${goal.target.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex space-x-2 ml-4">
+                            <button class="edit-goal-btn bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg transition-all" title="Editar meta" data-goal-id="${goal.id}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="delete-goal-btn bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg transition-all" title="Excluir meta" data-goal-id="${goal.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                fragment.appendChild(goalDiv);
+            });
+            
+            container.innerHTML = '';
+            container.appendChild(fragment);
+            
+            // Adicionar event listeners após renderizar
+            container.querySelectorAll('.edit-goal-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const goalId = btn.getAttribute('data-goal-id');
+                    showEditGoalModal(goalId);
+                });
+            });
+            
+            container.querySelectorAll('.delete-goal-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const goalId = btn.getAttribute('data-goal-id');
+                    deleteGoal(goalId);
+                });
+            });
+        }
+
+        function renderPiggyBankHistory() {
+            const container = document.getElementById('piggyBankHistory');
+            
+            if (piggyBankData.history.length === 0) {
+                container.innerHTML = '<p class="text-white text-opacity-70 text-center py-8">Nenhuma movimentação no cofrinho ainda</p>';
+                return;
+            }
+            
+            container.innerHTML = piggyBankData.history.map((entry, index) => {
+                const isDeposit = entry.type === 'deposit';
+                const amountColor = isDeposit ? 'text-green-400' : 'text-red-400';
+                const icon = isDeposit ? 'fa-plus' : 'fa-minus';
+                const bgColor = isDeposit ? 'bg-green-500' : 'bg-red-500';
+                
+                return `
+                    <div class="bg-white bg-opacity-5 rounded-xl p-4 border border-white border-opacity-10 slide-in" style="animation-delay: ${index * 0.05}s;">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-full ${bgColor} flex items-center justify-center text-white">
+                                    <i class="fas ${icon}"></i>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-white">${entry.description}</p>
+                                    ${entry.goalName ? `<p class="text-xs text-pink-300">Meta: ${entry.goalName}</p>` : ''}
+                                    <p class="text-sm text-white text-opacity-70">${new Date(entry.date).toLocaleDateString('pt-BR')}</p>
+                                </div>
+                            </div>
+                            <span class="font-bold ${amountColor}">
+                                ${isDeposit ? '+' : '-'} R$ ${Math.abs(entry.amount).toLocaleString('pt-BR', {minimumFractionDigits: 2})}
+                            </span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Modais do Cofrinho
+        function showCreateGoalModal() {
+            document.getElementById('goalName').value = '';
+            document.getElementById('goalTarget').value = '';
+            document.getElementById('goalDescription').value = '';
+            document.getElementById('createGoalModal').classList.remove('hidden');
+        }
+
+        function closeCreateGoalModal() {
+            document.getElementById('createGoalModal').classList.add('hidden');
+        }
+
+        function showChooseGoalModal() {
+            if (!currentTransactionToSave) return;
+            
+            document.getElementById('amountToSave').textContent = 
+                `R$ ${currentTransactionToSave.amount.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+            document.getElementById('transactionToSave').textContent = currentTransactionToSave.description;
+            
+            const goalsContainer = document.getElementById('goalsToChoose');
+            goalsContainer.innerHTML = piggyBankData.goals.map(goal => {
+                const progress = goal.target > 0 ? (goal.current / goal.target) * 100 : 0;
+                const remaining = Math.max(0, goal.target - goal.current);
+                
+                return `
+                    <button onclick="saveToSpecificGoal('${goal.id}')" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white p-4 rounded-xl transition-all text-left">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-bold text-lg">${goal.name}</h4>
+                            <span class="text-sm bg-white bg-opacity-20 px-2 py-1 rounded-full">${Math.round(progress)}%</span>
+                        </div>
+                        <div class="text-sm opacity-90 mb-2">
+                            R$ ${goal.current.toLocaleString('pt-BR', {minimumFractionDigits: 2})} de R$ ${goal.target.toLocaleString('pt-BR', {minimumFractionDigits: 2})}
+                        </div>
+                        <div class="w-full bg-white bg-opacity-20 rounded-full h-2">
+                            <div class="bg-white h-2 rounded-full transition-all duration-300" style="width: ${Math.min(progress, 100)}%"></div>
+                        </div>
+                        ${remaining > 0 ? `<div class="text-xs mt-2 opacity-75">Faltam R$ ${remaining.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</div>` : ''}
+                    </button>
+                `;
+            }).join('');
+            
+            document.getElementById('chooseGoalModal').classList.remove('hidden');
+        }
+
+        function closeChooseGoalModal() {
+            document.getElementById('chooseGoalModal').classList.add('hidden');
+            currentTransactionToSave = null;
+        }
+
+        function showWithdrawModal() {
+            if (piggyBankData.total <= 0) {
+                alert('Não há dinheiro no cofrinho para retirar!');
+                return;
+            }
+            
+            // Verificar se há metas com dinheiro
+            const goalsWithMoney = piggyBankData.goals.filter(g => g.current > 0);
+            if (goalsWithMoney.length === 0) {
+                alert('Não há metas com dinheiro para retirar!');
+                return;
+            }
+            
+            document.getElementById('availableBalance').textContent = 
+                `R$ ${piggyBankData.total.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+            
+            // Renderizar lista de metas para retirada
+            renderWithdrawGoalsList();
+            
+            // Reset form
+            document.getElementById('withdrawAmount').value = '';
+            document.getElementById('withdrawAmount').disabled = true;
+            document.getElementById('withdrawReason').value = '';
+            document.getElementById('withdrawSubmitBtn').disabled = true;
+            selectedWithdrawGoalId = null;
+            
+            document.getElementById('withdrawModal').classList.remove('hidden');
+        }
+
+        function renderWithdrawGoalsList() {
+            const container = document.getElementById('withdrawGoalsList');
+            const goalsWithMoney = piggyBankData.goals.filter(g => g.current > 0);
+            
+            if (goalsWithMoney.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center py-4">Nenhuma meta com dinheiro disponível</p>';
+                return;
+            }
+            
+            container.innerHTML = goalsWithMoney.map(goal => {
+                const progress = goal.target > 0 ? (goal.current / goal.target) * 100 : 0;
+                
+                return `
+                    <div class="withdraw-goal-option border border-gray-300 rounded-xl p-4 cursor-pointer hover:bg-gray-50 transition-all" data-goal-id="${goal.id}">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-bold text-gray-800">${goal.name}</h4>
+                            <span class="text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded-full">${Math.round(progress)}%</span>
+                        </div>
+                        <div class="text-sm text-gray-600 mb-2">
+                            Disponível: <span class="font-bold text-green-600">R$ ${goal.current.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-blue-500 h-2 rounded-full transition-all duration-300" style="width: ${Math.min(progress, 100)}%"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            // Adicionar event listeners
+            container.querySelectorAll('.withdraw-goal-option').forEach(option => {
+                option.addEventListener('click', () => {
+                    const goalId = option.getAttribute('data-goal-id');
+                    selectWithdrawGoal(goalId);
+                });
+            });
+        }
+
+        function selectWithdrawGoal(goalId) {
+            const goal = piggyBankData.goals.find(g => g.id === goalId);
+            if (!goal) return;
+            
+            selectedWithdrawGoalId = goalId;
+            
+            // Atualizar visual da seleção
+            document.querySelectorAll('.withdraw-goal-option').forEach(option => {
+                option.classList.remove('border-blue-500', 'bg-blue-50');
+                option.classList.add('border-gray-300');
+            });
+            
+            const selectedOption = document.querySelector(`[data-goal-id="${goalId}"]`);
+            selectedOption.classList.remove('border-gray-300');
+            selectedOption.classList.add('border-blue-500', 'bg-blue-50');
+            
+            // Habilitar campo de valor
+            const withdrawAmountField = document.getElementById('withdrawAmount');
+            withdrawAmountField.disabled = false;
+            withdrawAmountField.max = goal.current;
+            withdrawAmountField.placeholder = `Máximo: R$ ${goal.current.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+            withdrawAmountField.focus();
+            
+            // Habilitar botão de submit
+            document.getElementById('withdrawSubmitBtn').disabled = false;
+            
+            // Atualizar texto de ajuda
+            const helpText = withdrawAmountField.nextElementSibling;
+            helpText.textContent = `Máximo disponível: R$ ${goal.current.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+        }
+
+        function closeWithdrawModal() {
+            document.getElementById('withdrawModal').classList.add('hidden');
+        }
+
+        // Variáveis globais para edição
+        let editingGoalId = null;
+        let selectedWithdrawGoalId = null;
+
+        // Funções de gerenciamento de metas
+        async function createGoal(name, target, description) {
+            const newGoal = {
+                id: Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+                name: name,
+                target: target,
+                current: 0,
+                description: description,
+                created: new Date().toISOString().split('T')[0]
+            };
+            
+            piggyBankData.goals.push(newGoal);
+            
+            try {
+                await savePiggyBankData();
+                updatePiggyBank();
+                return true;
+            } catch (error) {
+                console.error('Erro ao criar meta:', error);
+                return false;
+            }
+        }
+
+        function showEditGoalModal(goalId) {
+            const goal = piggyBankData.goals.find(g => g.id === goalId);
+            if (!goal) return;
+            
+            editingGoalId = goalId;
+            
+            // Preencher campos do modal
+            document.getElementById('editGoalName').value = goal.name;
+            document.getElementById('editGoalTarget').value = goal.target;
+            document.getElementById('editGoalDescription').value = goal.description || '';
+            
+            // Mostrar modal
+            document.getElementById('editGoalModal').classList.remove('hidden');
+        }
+
+        function closeEditGoalModal() {
+            document.getElementById('editGoalModal').classList.add('hidden');
+            editingGoalId = null;
+        }
+
+        async function updateGoal(name, target, description) {
+            if (!editingGoalId) return false;
+            
+            const goal = piggyBankData.goals.find(g => g.id === editingGoalId);
+            if (!goal) return false;
+            
+            // Verificar se o novo nome já existe (exceto para a meta atual)
+            const existingGoal = piggyBankData.goals.find(g => 
+                g.id !== editingGoalId && g.name.toLowerCase() === name.toLowerCase()
+            );
+            
+            if (existingGoal) {
+                alert('Já existe uma meta com este nome!');
+                return false;
+            }
+            
+            goal.name = name;
+            goal.target = target;
+            goal.description = description;
+            
+            try {
+                await savePiggyBankData();
+                updatePiggyBank();
+                return true;
+            } catch (error) {
+                console.error('Erro ao editar meta:', error);
+                return false;
+            }
+        }
+
+        async function deleteGoal(goalId) {
+            const goal = piggyBankData.goals.find(g => g.id === goalId);
+            if (!goal) return;
+            
+            if (goal.current > 0) {
+                if (!confirm(`A meta "${goal.name}" possui R$ ${goal.current.toLocaleString('pt-BR', {minimumFractionDigits: 2})} guardados.\n\nAo excluir a meta, este valor permanecerá no cofrinho mas não estará mais vinculado a nenhuma meta específica.\n\nDeseja continuar?`)) {
+                    return;
+                }
+            } else {
+                if (!confirm(`Deseja realmente excluir a meta "${goal.name}"?`)) {
+                    return;
+                }
+            }
+            
+            // Remover meta do array
+            piggyBankData.goals = piggyBankData.goals.filter(g => g.id !== goalId);
+            
+            // Atualizar histórico para remover referência à meta excluída
+            piggyBankData.history.forEach(entry => {
+                if (entry.goalId === goalId) {
+                    entry.goalName = `${entry.goalName} (meta excluída)`;
+                    delete entry.goalId;
+                }
+            });
+            
+            try {
+                await savePiggyBankData();
+                updatePiggyBank();
+                alert('Meta excluída com sucesso!');
+            } catch (error) {
+                console.error('Erro ao excluir meta:', error);
+                alert('Erro ao excluir meta: ' + error.message);
+            }
+        }
+
+        // Event Listeners dos Modais
+        document.getElementById('createGoalForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const goalName = document.getElementById('goalName').value.trim();
+            const goalTarget = parseFloat(document.getElementById('goalTarget').value);
+            const goalDescription = document.getElementById('goalDescription').value.trim();
+            
+            if (!goalName) {
+                alert('Por favor, insira um nome para a meta!');
+                return;
+            }
+            
+            if (!goalTarget || goalTarget <= 0) {
+                alert('Por favor, insira um valor válido para a meta!');
+                return;
+            }
+            
+            // Verificar se já existe uma meta com o mesmo nome
+            if (piggyBankData.goals.some(g => g.name.toLowerCase() === goalName.toLowerCase())) {
+                alert('Já existe uma meta com este nome!');
+                return;
+            }
+            
+            const success = await createGoal(goalName, goalTarget, goalDescription);
+            
+            if (success) {
+                closeCreateGoalModal();
+                alert('Meta criada com sucesso!');
+            } else {
+                alert('Erro ao criar meta. Tente novamente.');
+            }
+        });
+
+        document.getElementById('editGoalForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const goalName = document.getElementById('editGoalName').value.trim();
+            const goalTarget = parseFloat(document.getElementById('editGoalTarget').value);
+            const goalDescription = document.getElementById('editGoalDescription').value.trim();
+            
+            if (!goalName) {
+                alert('Por favor, insira um nome para a meta!');
+                return;
+            }
+            
+            if (!goalTarget || goalTarget <= 0) {
+                alert('Por favor, insira um valor válido para a meta!');
+                return;
+            }
+            
+            const success = await updateGoal(goalName, goalTarget, goalDescription);
+            
+            if (success) {
+                closeEditGoalModal();
+                alert('Meta atualizada com sucesso!');
+            } else {
+                alert('Erro ao atualizar meta. Tente novamente.');
+            }
+        });
+
+        document.getElementById('withdrawForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (!selectedWithdrawGoalId) {
+                alert('Por favor, selecione uma meta para retirar o dinheiro!');
+                return;
+            }
+            
+            const withdrawAmount = parseFloat(document.getElementById('withdrawAmount').value);
+            const withdrawReason = document.getElementById('withdrawReason').value.trim();
+            
+            if (!withdrawAmount || withdrawAmount <= 0 || isNaN(withdrawAmount)) {
+                alert('Por favor, insira um valor válido para retirar!');
+                return;
+            }
+            
+            const selectedGoal = piggyBankData.goals.find(g => g.id === selectedWithdrawGoalId);
+            if (!selectedGoal) {
+                alert('Meta selecionada não encontrada!');
+                return;
+            }
+            
+            if (withdrawAmount > selectedGoal.current) {
+                alert(`Valor maior que o disponível na meta "${selectedGoal.name}"!\nDisponível: R$ ${selectedGoal.current.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`);
+                return;
+            }
+            
+            // Confirmar retirada
+            if (!confirm(`Confirma a retirada de R$ ${withdrawAmount.toLocaleString('pt-BR', {minimumFractionDigits: 2})} da meta "${selectedGoal.name}"?`)) {
+                return;
+            }
+            
+            try {
+                // Desabilitar botão durante processamento
+                const submitBtn = document.getElementById('withdrawSubmitBtn');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Processando...';
+                
+                // Retirar da meta específica
+                selectedGoal.current -= withdrawAmount;
+                
+                // Adicionar ao histórico
+                const historyEntry = {
+                    id: Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+                    type: 'withdrawal',
+                    amount: withdrawAmount,
+                    description: withdrawReason || 'Retirada do cofrinho',
+                    date: new Date().toISOString().split('T')[0],
+                    goalId: selectedGoal.id,
+                    goalName: selectedGoal.name
+                };
+                
+                piggyBankData.history.unshift(historyEntry);
+                piggyBankData.total -= withdrawAmount;
+                
+                // Criar transação de receita no mês atual
+                const newTransaction = {
+                    description: `Retirada do cofrinho (${selectedGoal.name})${withdrawReason ? ': ' + withdrawReason : ''}`,
+                    amount: withdrawAmount,
+                    type: 'income',
+                    category: 'other',
+                    date: new Date().toISOString().split('T')[0],
+                    priority: 'low',
+                    notes: `Valor retirado da meta "${selectedGoal.name}"`,
+                    completed: true,
+                    fromPiggyBank: true
+                };
+                
+                // Salvar transação no Firebase
+                const docId = await saveTransactionToFirebase(newTransaction);
+                newTransaction.id = docId;
+                transactions.unshift(newTransaction);
+                
+                // Salvar dados do cofrinho
+                await savePiggyBankData();
+                
+                // Atualizar interface
+                updatePiggyBank();
+                renderTransactions();
+                updateMonthlyBalance();
+                closeWithdrawModal();
+                
+                alert(`✅ Retirada realizada com sucesso!\n\nR$ ${withdrawAmount.toLocaleString('pt-BR', {minimumFractionDigits: 2})} retirados da meta "${selectedGoal.name}".\n\nO valor foi adicionado como receita no mês atual.`);
+                
+            } catch (error) {
+                console.error('Erro ao retirar do cofrinho:', error);
+                alert('❌ Erro ao retirar do cofrinho: ' + error.message);
+                
+                // Restaurar botão em caso de erro
+                const submitBtn = document.getElementById('withdrawSubmitBtn');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        });
+
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'972d664c141f0316',t:'MTc1NTgxMzU4OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
